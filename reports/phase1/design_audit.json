@@ -1,0 +1,131 @@
+{
+  "canonical_topology_audit": {
+    "node_labels_ignored": "document labels only; q and relation types are fixed",
+    "signatures_overlap": true,
+    "t1_negative_signature": "retrieval:q>d0|title_mention:d1>d0",
+    "t1_t2_implication": "T1 and T2 share the same typed unlabeled collider topology, so holding one out does not test an unseen topology family",
+    "t2_negative_signature": "retrieval:q>d0|title_mention:d1>d0",
+    "t3_implication": "The degree-preserving 2-switch keeps the same typed unlabeled two-branch topology; its counterfactual signal depends on fixed document identities or attributes rather than an unlabeled graph motif",
+    "t3_negative_signature": "retrieval:q>d0|retrieval:q>d1|title_mention:d0>d2|title_mention:d1>d3",
+    "t3_positive_signature": "retrieval:q>d0|retrieval:q>d1|title_mention:d0>d2|title_mention:d1>d3",
+    "t3_signatures_overlap": true
+  },
+  "definitions": {
+    "operation_deduplication": "directed endpoint pairs are sets; one gold-edge/other-edge pair is counted once regardless of the number of mentioning sentences",
+    "t1": "exactly one real directed mention edge exists between the two gold documents; both endpoints have real top-k retrieval edges; the counterfactual reverses the mention direction",
+    "t2": "for asymmetric real gold edge u->v, positive edges are q->u and u->v; the counterfactual keeps u->v and moves the real top-k retrieval anchor to q->v",
+    "t3_natural": "the same four-document target-swap, but both switched mention edges already exist in the unmodified graph",
+    "t3_synthetic": "combine asymmetric gold edge u->v with a real mention edge a->b over four distinct documents; q->u and q->a must both be real top-k retrieval anchors; target-swap to u->b and a->v, both of which must be absent"
+  },
+  "design_gate": {
+    "blocked_actions": [
+      "formal_synthetic_pair_generation",
+      "leave_one_perturbation_out_training_or_evaluation"
+    ],
+    "passed": false,
+    "reasons": [
+      "T1 and T2 have overlapping canonical typed negative topology",
+      "T3 is incompatible with the current two-document single-path unit",
+      "four-document T3 and current two-document T1/T2 require different verifier input schemas"
+    ],
+    "status": "blocked_before_formal_pair_generation_and_lopo"
+  },
+  "inputs": {
+    "dev_distractor": {
+      "frozen_question_count": 500,
+      "ids_path": "/file_system/mkb524/topocf-rag/data/splits/hotpot_dev_bridge_500_ids.json",
+      "ids_sha256": "501affbe3d35fdc51be29f0cf8012718d9b47b4063ddd229da3efebf862b8bbb",
+      "retrieval_top_k": 10,
+      "source_path": "/file_system/datasets/hotpotqa/hotpot_dev_distractor_v1.json",
+      "source_sha256": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea"
+    },
+    "train": {
+      "frozen_question_count": 1000,
+      "ids_path": "/file_system/mkb524/topocf-rag/data/splits/hotpot_train_bridge_1000_ids.json",
+      "ids_sha256": "a06aeb4b654bfe615d572788dea4d7032ff82a4b4f3bd0c8c3382e9714026c57",
+      "retrieval_top_k": 10,
+      "source_path": "/file_system/datasets/hotpotqa/hotpot_train_v1.1.json",
+      "source_sha256": "26650cf50234ef5fb2e664ed70bbecdfd87815e6bffc257e068efea5cf7cd316"
+    }
+  },
+  "schema_version": 1,
+  "single_path_t3": {
+    "definition": "a q->d_i->d_j scoring unit has only two document nodes and one mention edge, while a degree-preserving 2-switch requires two edges over four distinct document nodes",
+    "operations": 0,
+    "questions": 0
+  },
+  "splits": {
+    "dev_distractor": {
+      "gold_mention_structure": {
+        "asymmetric_edge_count": 340,
+        "asymmetric_edge_questions": 340,
+        "bidirectional_questions": 18,
+        "eligible_two_supporting_title_questions": 500,
+        "no_edge_questions": 142
+      },
+      "question_count": 500,
+      "t1": {
+        "operations": 340,
+        "questions": 340
+      },
+      "t2": {
+        "operations": 340,
+        "questions": 340
+      },
+      "t3_four_document_subgraph": {
+        "disjoint_original_edge_pairs": {
+          "operations": 353,
+          "questions": 109
+        },
+        "natural_both_switched_edges_real": {
+          "operations": 28,
+          "questions": 12
+        },
+        "rejected_exactly_one_switched_edge_real": {
+          "operations": 138,
+          "questions": 42
+        },
+        "synthetic_both_switched_edges_absent": {
+          "operations": 187,
+          "questions": 74
+        }
+      }
+    },
+    "train": {
+      "gold_mention_structure": {
+        "asymmetric_edge_count": 747,
+        "asymmetric_edge_questions": 747,
+        "bidirectional_questions": 45,
+        "eligible_two_supporting_title_questions": 1000,
+        "no_edge_questions": 208
+      },
+      "question_count": 1000,
+      "t1": {
+        "operations": 747,
+        "questions": 747
+      },
+      "t2": {
+        "operations": 747,
+        "questions": 747
+      },
+      "t3_four_document_subgraph": {
+        "disjoint_original_edge_pairs": {
+          "operations": 923,
+          "questions": 275
+        },
+        "natural_both_switched_edges_real": {
+          "operations": 65,
+          "questions": 27
+        },
+        "rejected_exactly_one_switched_edge_real": {
+          "operations": 408,
+          "questions": 123
+        },
+        "synthetic_both_switched_edges_absent": {
+          "operations": 450,
+          "questions": 184
+        }
+      }
+    }
+  }
+}

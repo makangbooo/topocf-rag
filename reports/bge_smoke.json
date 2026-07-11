@@ -1,0 +1,14 @@
+{
+  "device_index": 0,
+  "device_name": "NVIDIA A100-SXM4-80GB",
+  "dtype": "float16",
+  "elapsed_seconds_including_model_load": 4.822734080022201,
+  "input_count": 20,
+  "max_length": 64,
+  "model_path": "/file_system/models/embedding_models/bge-m3",
+  "output_shape": [
+    20,
+    1024
+  ],
+  "peak_memory_bytes": 1148672512
+}

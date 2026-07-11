@@ -1,0 +1,16 @@
+{
+  "cuda_available": true,
+  "cuda_device_count": 1,
+  "cuda_devices": [
+    {
+      "index": 0,
+      "name": "NVIDIA A100-SXM4-80GB",
+      "total_memory_bytes": 85094825984
+    }
+  ],
+  "platform": "Linux-5.15.0-105-generic-x86_64-with-glibc2.35",
+  "python_executable": "/file_system/mkb524/topocf-rag/.venv/bin/python",
+  "python_version": "3.11.14",
+  "torch_cuda_version": "12.6",
+  "torch_version": "2.9.1+cu126"
+}

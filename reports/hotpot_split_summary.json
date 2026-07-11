@@ -1,0 +1,67 @@
+{
+  "official_splits_mixed": false,
+  "outputs": [
+    {
+      "bridge_count_by_level": {
+        "easy": 14466,
+        "hard": 12451,
+        "medium": 46074
+      },
+      "fields": [
+        "_id",
+        "answer",
+        "context",
+        "level",
+        "question",
+        "supporting_facts",
+        "type"
+      ],
+      "official_split": "train",
+      "output_path": "/file_system/mkb524/topocf-rag/data/splits/hotpot_train_bridge_1000_ids.json",
+      "output_sha256": "a06aeb4b654bfe615d572788dea4d7032ff82a4b4f3bd0c8c3382e9714026c57",
+      "record_count": 90447,
+      "selected_by_level": {
+        "easy": 198,
+        "hard": 171,
+        "medium": 631
+      },
+      "selected_count": 1000,
+      "source_path": "/file_system/datasets/hotpotqa/hotpot_train_v1.1.json",
+      "source_sha256": "26650cf50234ef5fb2e664ed70bbecdfd87815e6bffc257e068efea5cf7cd316",
+      "type_counts": {
+        "bridge": 72991,
+        "comparison": 17456
+      }
+    },
+    {
+      "bridge_count_by_level": {
+        "hard": 5918
+      },
+      "fields": [
+        "_id",
+        "answer",
+        "context",
+        "level",
+        "question",
+        "supporting_facts",
+        "type"
+      ],
+      "official_split": "dev_distractor",
+      "output_path": "/file_system/mkb524/topocf-rag/data/splits/hotpot_dev_bridge_500_ids.json",
+      "output_sha256": "501affbe3d35fdc51be29f0cf8012718d9b47b4063ddd229da3efebf862b8bbb",
+      "record_count": 7405,
+      "selected_by_level": {
+        "hard": 500
+      },
+      "selected_count": 500,
+      "source_path": "/file_system/datasets/hotpotqa/hotpot_dev_distractor_v1.json",
+      "source_sha256": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea",
+      "type_counts": {
+        "bridge": 5918,
+        "comparison": 1487
+      }
+    }
+  ],
+  "seed": 20260711,
+  "train_dev_id_overlap_count": 0
+}

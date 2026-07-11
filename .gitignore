@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Large or reproducible runtime artifacts
+data/cache/
+reports/cache/
+reports/*.jsonl
+reports/title_graph/cache/
+
+# Local credentials and editor state
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
