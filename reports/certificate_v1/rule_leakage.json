@@ -1,0 +1,2865 @@
+{
+  "content_contract": "manifest metadata only; no question, answer, title, sentence, or document text",
+  "input_hashes": {
+    "natural_dev": "3c110ff01264633441fdb81b8e6738c825aa4bb727ed2135ca9d8094d14a000c",
+    "natural_train": "06719fefa4a19fea0763ade50a8177c52b37f0ccd96f6bc29fd8e9d66cb24667",
+    "synthetic_dev": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35",
+    "synthetic_train": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+  },
+  "lookup_protocol": "question-balanced train lookup; leave-one-question-out on train; train-fitted lookup on dev; Laplace smoothing",
+  "natural": {
+    "dev_distractor": {
+      "by_negative_edge_reality": {
+        "all_observed": {
+          "counts": {
+            "pair_count": 202,
+            "question_count": 202
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            }
+          }
+        }
+      },
+      "by_stratum_variant": {
+        "natural_retrieval_error/natural": {
+          "counts": {
+            "pair_count": 202,
+            "question_count": 202
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 202,
+              "question_count": 202,
+              "tie_count": 202,
+              "value": 0.5,
+              "win_count": 0
+            }
+          }
+        }
+      },
+      "counts": {
+        "pair_count": 202,
+        "question_count": 202
+      },
+      "rules": {
+        "alias_topology_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "canonical_topology_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "composable_two_hop_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "composable_two_hop_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "degree_profile_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "edge_reality_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "full_structural_metadata_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "observed_edge_fraction": {
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "observed_title_mention_fraction": {
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "root_reachable_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "root_reachable_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 202,
+          "question_count": 202,
+          "tie_count": 202,
+          "value": 0.5,
+          "win_count": 0
+        }
+      }
+    },
+    "train": {
+      "by_negative_edge_reality": {
+        "all_observed": {
+          "counts": {
+            "pair_count": 504,
+            "question_count": 504
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            }
+          }
+        }
+      },
+      "by_stratum_variant": {
+        "natural_retrieval_error/natural": {
+          "counts": {
+            "pair_count": 504,
+            "question_count": 504
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 1,
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 504,
+              "question_count": 504,
+              "tie_count": 504,
+              "value": 0.5,
+              "win_count": 0
+            }
+          }
+        }
+      },
+      "counts": {
+        "pair_count": 504,
+        "question_count": 504
+      },
+      "rules": {
+        "alias_topology_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "canonical_topology_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "composable_two_hop_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "composable_two_hop_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "degree_profile_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "edge_reality_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "full_structural_metadata_lookup": {
+          "feature_cardinality": 1,
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "observed_edge_fraction": {
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "observed_title_mention_fraction": {
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "root_reachable_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        },
+        "root_reachable_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 504,
+          "question_count": 504,
+          "tie_count": 504,
+          "value": 0.5,
+          "win_count": 0
+        }
+      }
+    }
+  },
+  "schema_version": 1,
+  "synthetic": {
+    "dev_distractor": {
+      "by_negative_edge_reality": {
+        "all_observed": {
+          "counts": {
+            "pair_count": 381,
+            "question_count": 109
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 12,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 0,
+              "value": 0.9882262996941895,
+              "win_count": 369
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 28,
+              "value": 0.9807339449541285,
+              "win_count": 353
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 28,
+              "value": 0.9807339449541285,
+              "win_count": 353
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 28,
+              "value": 0.9807339449541285,
+              "win_count": 353
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 28,
+              "value": 0.9807339449541285,
+              "win_count": 353
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 381,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 10,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 0,
+              "value": 0.9906727828746178,
+              "win_count": 371
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 381,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 381,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 28,
+              "value": 0.9807339449541285,
+              "win_count": 353
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 381,
+              "question_count": 109,
+              "tie_count": 28,
+              "value": 0.9807339449541285,
+              "win_count": 353
+            }
+          }
+        },
+        "mixed_2_observed_2_counterfactual": {
+          "counts": {
+            "pair_count": 300,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 76,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 0.741080586080586,
+              "win_count": 224
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.75,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.75,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.75,
+              "win_count": 150
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.75,
+              "win_count": 150
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            }
+          }
+        },
+        "mixed_3_observed_1_counterfactual": {
+          "counts": {
+            "pair_count": 300,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.75,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 300,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.75,
+              "win_count": 150
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 300,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 300
+            }
+          }
+        }
+      },
+      "by_stratum_variant": {
+        "all_observed_rewire/t3_all_observed": {
+          "counts": {
+            "pair_count": 28,
+            "question_count": 12
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 12,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 0,
+              "value": 0.7138888888888889,
+              "win_count": 16
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 10,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 0,
+              "value": 0.7013888888888888,
+              "win_count": 18
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 28,
+              "question_count": 12,
+              "tie_count": 28,
+              "value": 0.5,
+              "win_count": 0
+            }
+          }
+        },
+        "synthetic_common/double_collider": {
+          "counts": {
+            "pair_count": 150,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            }
+          }
+        },
+        "synthetic_common/fork": {
+          "counts": {
+            "pair_count": 150,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            }
+          }
+        },
+        "synthetic_common/t1": {
+          "counts": {
+            "pair_count": 150,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            }
+          }
+        },
+        "synthetic_common/t2": {
+          "counts": {
+            "pair_count": 150,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            }
+          }
+        },
+        "synthetic_common/t3": {
+          "counts": {
+            "pair_count": 150,
+            "question_count": 65
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 76,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 0.48216117216117205,
+              "win_count": 74
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 150,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 150,
+              "question_count": 65,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 150
+            }
+          }
+        },
+        "t2_all_observed/t2": {
+          "counts": {
+            "pair_count": 203,
+            "question_count": 59
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 203,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 203,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 203,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 203,
+              "question_count": 59,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 203
+            }
+          }
+        }
+      },
+      "counts": {
+        "pair_count": 981,
+        "question_count": 109
+      },
+      "rules": {
+        "alias_topology_lookup": {
+          "feature_cardinality": 60,
+          "loss_count": 88,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 0,
+          "value": 0.9282347836336569,
+          "win_count": 893
+        },
+        "canonical_topology_lookup": {
+          "feature_cardinality": 4,
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 178,
+          "value": 0.9253651486239669,
+          "win_count": 803
+        },
+        "composable_two_hop_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 328,
+          "value": 0.8691815707450761,
+          "win_count": 653
+        },
+        "composable_two_hop_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 328,
+          "value": 0.8691815707450761,
+          "win_count": 653
+        },
+        "degree_profile_lookup": {
+          "feature_cardinality": 48,
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 178,
+          "value": 0.9253651486239669,
+          "win_count": 803
+        },
+        "edge_reality_lookup": {
+          "feature_cardinality": 3,
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 381,
+          "value": 0.7247343115155558,
+          "win_count": 600
+        },
+        "full_structural_metadata_lookup": {
+          "feature_cardinality": 108,
+          "loss_count": 10,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 0,
+          "value": 0.9911731998887962,
+          "win_count": 971
+        },
+        "observed_edge_fraction": {
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 381,
+          "value": 0.7247343115155558,
+          "win_count": 600
+        },
+        "observed_title_mention_fraction": {
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 381,
+          "value": 0.7247343115155558,
+          "win_count": 600
+        },
+        "root_reachable_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 328,
+          "value": 0.8691815707450761,
+          "win_count": 653
+        },
+        "root_reachable_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 981,
+          "question_count": 109,
+          "tie_count": 28,
+          "value": 0.9815487265028549,
+          "win_count": 953
+        }
+      }
+    },
+    "train": {
+      "by_negative_edge_reality": {
+        "all_observed": {
+          "counts": {
+            "pair_count": 988,
+            "question_count": 275
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 34,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 0,
+              "value": 0.9841423021423022,
+              "win_count": 954
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 65,
+              "value": 0.9837430902430901,
+              "win_count": 923
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 65,
+              "value": 0.9837430902430901,
+              "win_count": 923
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 65,
+              "value": 0.9837430902430901,
+              "win_count": 923
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 65,
+              "value": 0.9837430902430901,
+              "win_count": 923
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 988,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 32,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 0,
+              "value": 0.9852332112332114,
+              "win_count": 956
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 988,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 988,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 65,
+              "value": 0.9837430902430901,
+              "win_count": 923
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 988,
+              "question_count": 275,
+              "tie_count": 65,
+              "value": 0.9837430902430901,
+              "win_count": 923
+            }
+          }
+        },
+        "mixed_2_observed_2_counterfactual": {
+          "counts": {
+            "pair_count": 736,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 200,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 0.740086759341418,
+              "win_count": 536
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.75,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.75,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.75,
+              "win_count": 368
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.75,
+              "win_count": 368
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            }
+          }
+        },
+        "mixed_3_observed_1_counterfactual": {
+          "counts": {
+            "pair_count": 736,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.75,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 736,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.75,
+              "win_count": 368
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 736,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 736
+            }
+          }
+        }
+      },
+      "by_stratum_variant": {
+        "all_observed_rewire/t3_all_observed": {
+          "counts": {
+            "pair_count": 65,
+            "question_count": 27
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 34,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 0,
+              "value": 0.48606701940035263,
+              "win_count": 31
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 32,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 0,
+              "value": 0.5231040564373898,
+              "win_count": 33
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 65,
+              "question_count": 27,
+              "tie_count": 65,
+              "value": 0.5,
+              "win_count": 0
+            }
+          }
+        },
+        "synthetic_common/double_collider": {
+          "counts": {
+            "pair_count": 368,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            }
+          }
+        },
+        "synthetic_common/fork": {
+          "counts": {
+            "pair_count": 368,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            }
+          }
+        },
+        "synthetic_common/t1": {
+          "counts": {
+            "pair_count": 368,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            }
+          }
+        },
+        "synthetic_common/t2": {
+          "counts": {
+            "pair_count": 368,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            }
+          }
+        },
+        "synthetic_common/t3": {
+          "counts": {
+            "pair_count": 368,
+            "question_count": 161
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 200,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 0.48017351868283525,
+              "win_count": 168
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 368,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 368,
+              "question_count": 161,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 368
+            }
+          }
+        },
+        "t2_all_observed/t2": {
+          "counts": {
+            "pair_count": 555,
+            "question_count": 158
+          },
+          "rules": {
+            "alias_topology_lookup": {
+              "feature_cardinality": 60,
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "canonical_topology_lookup": {
+              "feature_cardinality": 4,
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "composable_two_hop_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "composable_two_hop_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "degree_profile_lookup": {
+              "feature_cardinality": 48,
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "edge_reality_lookup": {
+              "feature_cardinality": 3,
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 555,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "full_structural_metadata_lookup": {
+              "feature_cardinality": 108,
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "observed_edge_fraction": {
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 555,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "observed_title_mention_fraction": {
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 555,
+              "value": 0.5,
+              "win_count": 0
+            },
+            "root_reachable_fraction_all_edges": {
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            },
+            "root_reachable_fraction_observed_edges": {
+              "loss_count": 0,
+              "pair_count": 555,
+              "question_count": 158,
+              "tie_count": 0,
+              "value": 1.0,
+              "win_count": 555
+            }
+          }
+        }
+      },
+      "counts": {
+        "pair_count": 2460,
+        "question_count": 275
+      },
+      "rules": {
+        "alias_topology_lookup": {
+          "feature_cardinality": 60,
+          "loss_count": 234,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 0,
+          "value": 0.9276373461489357,
+          "win_count": 2226
+        },
+        "canonical_topology_lookup": {
+          "feature_cardinality": 4,
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 433,
+          "value": 0.9292567941851014,
+          "win_count": 2027
+        },
+        "composable_two_hop_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 801,
+          "value": 0.8745053466119596,
+          "win_count": 1659
+        },
+        "composable_two_hop_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 801,
+          "value": 0.8745053466119596,
+          "win_count": 1659
+        },
+        "degree_profile_lookup": {
+          "feature_cardinality": 48,
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 433,
+          "value": 0.9292567941851014,
+          "win_count": 2027
+        },
+        "edge_reality_lookup": {
+          "feature_cardinality": 3,
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 988,
+          "value": 0.7190057902925687,
+          "win_count": 1472
+        },
+        "full_structural_metadata_lookup": {
+          "feature_cardinality": 108,
+          "loss_count": 32,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 0,
+          "value": 0.9854604839604841,
+          "win_count": 2428
+        },
+        "observed_edge_fraction": {
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 988,
+          "value": 0.7190057902925687,
+          "win_count": 1472
+        },
+        "observed_title_mention_fraction": {
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 988,
+          "value": 0.7190057902925687,
+          "win_count": 1472
+        },
+        "root_reachable_fraction_all_edges": {
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 801,
+          "value": 0.8745053466119596,
+          "win_count": 1659
+        },
+        "root_reachable_fraction_observed_edges": {
+          "loss_count": 0,
+          "pair_count": 2460,
+          "question_count": 275,
+          "tie_count": 65,
+          "value": 0.9840082417582415,
+          "win_count": 2395
+        }
+      }
+    }
+  },
+  "synthetic_dev_gate": {
+    "best_question_macro_pairwise_accuracy": 0.9911731998887962,
+    "best_rule": "full_structural_metadata_lookup",
+    "passed": false,
+    "threshold": 0.65
+  }
+}
