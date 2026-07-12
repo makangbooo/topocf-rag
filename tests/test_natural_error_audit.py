@@ -94,6 +94,18 @@ def test_public_report_aggregates_failures_and_keeps_text_out() -> None:
     assert report["screening_gate"]["formal_g0"] is False
     assert {audit.qid for audit in sample} == {"q-partial", "q-none"}
 
+    answer_strata = report["by_top_k"]["2"][
+        "answer_string_by_retrieval_status"
+    ]
+    assert answer_strata["retrieval_failure"] == {
+        "eligible_count": 2,
+        "present_count": 1,
+        "absent_count": 1,
+        "present_rate": 0.5,
+    }
+    assert answer_strata["partial_gold_evidence_proxy"]["present_rate"] == 1.0
+    assert answer_strata["no_gold_support_document"]["present_rate"] == 0.0
+
     encoded = json.dumps(report, sort_keys=True)
     for forbidden in (
         "Which sentinel answer",

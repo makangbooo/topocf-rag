@@ -20,7 +20,7 @@ from .graph import supporting_title_order, validate_hotpot_example
 from .title_normalization import normalize_title
 
 
-AUDIT_SCHEMA_VERSION = 1
+AUDIT_SCHEMA_VERSION = 2
 AUDIT_SCOPE = "hotpot_official_context_pool_top_k"
 TARGET_PROXY = "exactly_one_gold_support_document_retrieved"
 
@@ -245,6 +245,21 @@ def _aggregate_outcomes(
     answer_present_count = sum(
         outcome.answer_string_present is True for outcome in answer_eligible
     )
+
+    def answer_summary(subset: Sequence[TopKOutcome]) -> dict[str, Any]:
+        eligible_subset = [
+            outcome for outcome in subset if outcome.answer_string_check_eligible
+        ]
+        present_count = sum(
+            outcome.answer_string_present is True for outcome in eligible_subset
+        )
+        return {
+            "eligible_count": len(eligible_subset),
+            "present_count": present_count,
+            "absent_count": len(eligible_subset) - present_count,
+            "present_rate": _rate(present_count, len(eligible_subset)),
+        }
+
     return {
         "counts": {
             "eligible_question_count": len(outcomes),
@@ -269,6 +284,29 @@ def _aggregate_outcomes(
             ),
         },
         "partial_proxy_wilson_95": wilson_interval(partial_count, failure_count),
+        "answer_string_by_retrieval_status": {
+            "all": answer_summary(outcomes),
+            "complete_gold_evidence": answer_summary(
+                [outcome for outcome in outcomes if outcome.complete]
+            ),
+            "retrieval_failure": answer_summary(
+                [outcome for outcome in outcomes if outcome.failure]
+            ),
+            "partial_gold_evidence_proxy": answer_summary(
+                [
+                    outcome
+                    for outcome in outcomes
+                    if outcome.partial_gold_evidence_proxy
+                ]
+            ),
+            "no_gold_support_document": answer_summary(
+                [
+                    outcome
+                    for outcome in outcomes
+                    if outcome.gold_support_document_count == 0
+                ]
+            ),
+        },
     }
 
 
@@ -390,6 +428,11 @@ def build_public_audit_report(
                 "proceed_to_human_validation"
                 if passed
                 else "stop_or_redesign_before_human_validation"
+            ),
+            "interpretation": (
+                "Passing authorizes private human or independent-judge validation "
+                "only; it does not establish formal G0 or natural full-corpus "
+                "retrieval prevalence."
             ),
         },
         "private_sample": {
