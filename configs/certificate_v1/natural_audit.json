@@ -1,0 +1,19 @@
+{
+  "audit_id": "hotpot-controlled-retrieval-dev-v1",
+  "dataset": "hotpotqa",
+  "ids_path": "data/splits/hotpot_dev_bridge_500_ids.json",
+  "official_split": "dev_distractor",
+  "primary_top_k": 5,
+  "private_sample_size": 100,
+  "public_output": "reports/certificate_v1/natural_error_audit.json",
+  "retrieval_cache_path": "reports/title_graph/cache/dev_distractor_bge_retrieval.json",
+  "sample_seed": 20260713,
+  "schema_version": 1,
+  "screening_threshold": 0.15,
+  "source_path": "/file_system/datasets/hotpotqa/hotpot_dev_distractor_v1.json",
+  "top_ks": [
+    2,
+    3,
+    5
+  ]
+}
