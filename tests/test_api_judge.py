@@ -4,6 +4,7 @@ import httpx
 
 from topocf_rag.api_judge import (
     api_judge_prompt_template_sha256,
+    api_judge_run_fingerprint,
     build_public_api_judge_report,
     execute_api_judge_call,
     select_final_human_records,
@@ -124,6 +125,29 @@ def test_execute_api_judge_call_is_deterministic_and_parses_strict_json() -> Non
     assert request["url"] == "https://private.invalid/v1/chat/completions"
     assert request["json"]["temperature"] == 0
     assert request["json"]["max_tokens"] == 512
+
+
+def test_run_fingerprint_binds_timeout_model_and_dataset() -> None:
+    base = {
+        "dataset_name": "hotpotqa",
+        "dataset_split": "dev_distractor",
+        "model": "judge-model",
+        "private_input_sha256": "a" * 64,
+        "private_annotations_sha256": "b" * 64,
+        "selected_sequence_sha256": "c" * 64,
+        "max_completion_tokens": 512,
+        "timeout_seconds": 120.0,
+    }
+    fingerprint = api_judge_run_fingerprint(**base)
+    assert len(fingerprint) == 64
+    for key, value in (
+        ("timeout_seconds", 300.0),
+        ("model", "different-model"),
+        ("dataset_split", "train"),
+    ):
+        changed = dict(base)
+        changed[key] = value
+        assert api_judge_run_fingerprint(**changed) != fingerprint
 
 
 def test_execute_api_judge_call_never_persists_http_error_body() -> None:

@@ -21,7 +21,7 @@ from .local_judge import (
 
 
 API_JUDGE_SCHEMA_VERSION = 1
-API_JUDGE_PROTOCOL_VERSION = "independent-evidence-sufficiency-judge-v1"
+API_JUDGE_PROTOCOL_VERSION = "independent-evidence-sufficiency-judge-v2"
 API_JUDGE_PROMPT_VERSION = "natural-error-independent-judge-v1"
 
 
@@ -37,6 +37,45 @@ def api_judge_prompt_template_sha256() -> str:
             "prompt_version": API_JUDGE_PROMPT_VERSION,
             "system": SYSTEM_PROMPT,
             "labels": LABEL_INSTRUCTIONS,
+        }
+    )
+
+
+def api_judge_run_fingerprint(
+    *,
+    dataset_name: str,
+    dataset_split: str,
+    model: str,
+    private_input_sha256: str,
+    private_annotations_sha256: str,
+    selected_sequence_sha256: str,
+    max_completion_tokens: int,
+    timeout_seconds: float,
+) -> str:
+    """Bind every request-level control that can change an API judge run."""
+
+    if not dataset_name or not dataset_split or not model:
+        raise ApiJudgeInvariantError("dataset and model identifiers must not be empty")
+    if max_completion_tokens < 1 or timeout_seconds <= 0:
+        raise ApiJudgeInvariantError("token limit and timeout must be positive")
+    return stable_json_sha256(
+        {
+            "schema_version": API_JUDGE_SCHEMA_VERSION,
+            "protocol_version": API_JUDGE_PROTOCOL_VERSION,
+            "task": "independent_evidence_sufficiency_adjudication",
+            "dataset_name": dataset_name,
+            "dataset_split": dataset_split,
+            "model": model,
+            "prompt_version": API_JUDGE_PROMPT_VERSION,
+            "prompt_template_sha256": api_judge_prompt_template_sha256(),
+            "private_input_sha256": private_input_sha256,
+            "private_annotations_sha256": private_annotations_sha256,
+            "selected_sequence_sha256": selected_sequence_sha256,
+            "temperature": 0,
+            "max_completion_tokens": max_completion_tokens,
+            "timeout_seconds": timeout_seconds,
+            "concurrency": 1,
+            "automatic_retries": 0,
         }
     )
 

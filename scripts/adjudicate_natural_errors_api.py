@@ -20,6 +20,7 @@ from topocf_rag.api_judge import (
     API_JUDGE_SCHEMA_VERSION,
     ApiJudgeInvariantError,
     api_judge_prompt_template_sha256,
+    api_judge_run_fingerprint,
     build_public_api_judge_report,
     execute_api_judge_call,
     select_final_human_records,
@@ -48,7 +49,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dataset-name", required=True)
     parser.add_argument("--dataset-split", required=True)
     parser.add_argument("--max-completion-tokens", type=int, default=512)
-    parser.add_argument("--timeout-seconds", type=float, default=120.0)
+    parser.add_argument("--timeout-seconds", type=float, default=300.0)
     parser.add_argument("--max-new-records", type=int)
     parser.add_argument("--resume", action="store_true")
     return parser.parse_args()
@@ -163,24 +164,15 @@ def main() -> int:
             separators=(",", ":"),
         ).encode("utf-8")
     ).hexdigest()
-    run_fingerprint = stable_json_sha256(
-        {
-            "schema_version": API_JUDGE_SCHEMA_VERSION,
-            "protocol_version": API_JUDGE_PROTOCOL_VERSION,
-            "task": "independent_evidence_sufficiency_adjudication",
-            "dataset_name": args.dataset_name,
-            "dataset_split": args.dataset_split,
-            "model": model,
-            "prompt_version": API_JUDGE_PROMPT_VERSION,
-            "prompt_template_sha256": api_judge_prompt_template_sha256(),
-            "private_input_sha256": bundle.input_sha256,
-            "private_annotations_sha256": sha256_file(annotations_path),
-            "selected_sequence_sha256": selected_sequence_sha256,
-            "temperature": 0,
-            "max_completion_tokens": args.max_completion_tokens,
-            "concurrency": 1,
-            "automatic_retries": 0,
-        }
+    run_fingerprint = api_judge_run_fingerprint(
+        dataset_name=args.dataset_name,
+        dataset_split=args.dataset_split,
+        model=model,
+        private_input_sha256=bundle.input_sha256,
+        private_annotations_sha256=sha256_file(annotations_path),
+        selected_sequence_sha256=selected_sequence_sha256,
+        max_completion_tokens=args.max_completion_tokens,
+        timeout_seconds=args.timeout_seconds,
     )
     completed = (
         _load_completed(
