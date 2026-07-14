@@ -113,3 +113,24 @@ and degree-only controls, no more than 0.01 regression at any macro budget
 against the strongest baseline, permutation `p <= 0.01` with the observed
 score above the null maximum, and positive exact-McNemar gains with
 `p <= 0.01` at every budget.
+
+## Post-validation receiving-degree diagnosis
+
+The robustness gate failed only because the Hotpot-transferred graph method
+did not beat the train-selected receiving-degree control. Before adapting
+MuSiQue or changing retrieval methods, run a post-validation diagnostic that
+reproduces the 2Wiki-train-selected graph and degree methods, reports their
+per-type paired complementarity, and measures gold/non-gold degree separation.
+This diagnostic is declared after the degree-control result and is exploratory.
+
+```bash
+python scripts/diagnose_2wiki_degree_shortcut.py \
+  --output reports/graph_retrieval/2wiki_degree_shortcut_diagnostic.json
+```
+
+The frozen decision rule first asks whether the 2Wiki-tuned graph method beats
+the degree control by at least 0.02 without a budget regression larger than
+0.01. Otherwise, a label-free router is authorized only when oracle union
+headroom, degree-only wins, and graph-only wins each average at least 0.02.
+If neither condition holds, the next research stage is a benchmark
+receiving-degree shortcut audit rather than a GraphRAG propagation claim.
