@@ -68,3 +68,27 @@ test: `title + newline + joined sentences`, maximum length 512, FP16 model
 execution, L2-normalized dense vectors, and cosine similarity. Gold supporting
 facts are not read by the scorer. Cache reuse requires exact source, ID-file,
 model-path, serialization-version, and maximum-length metadata matches.
+
+## Frozen graph-retrieval evaluation
+
+The primary cross-dataset result transfers the Hotpot-selected graph method
+without using 2Wiki for selection: one-hop maximum propagation, dense/BM25
+RRF seed, direction ignored, and graph weight 0.75. A separate secondary
+result selects one of the same 36 declared configurations on frozen 2Wiki
+train and evaluates it once on dev.
+
+Two-gold and four-gold questions are compared using the same **extra evidence
+budget** rather than the same absolute K. Extra budgets are 0, 1, and 3, giving
+K=2/3/5 for `comparison`, `compositional`, and `inference`, and K=4/5/7 for
+`bridge_comparison`. The primary aggregate is a macro average across the four
+balanced question types.
+
+```bash
+python scripts/evaluate_2wiki_graph_retrieval.py \
+  --output reports/graph_retrieval/2wiki_graph_retrieval.json
+```
+
+The zero-shot reproduction gate requires at least +0.02 absolute macro mean
+complete-evidence retrieval over the matching RRF baseline, with no more than
+0.01 absolute macro regression at any frozen extra budget. This gate is fixed
+before observing 2Wiki retrieval outcomes.

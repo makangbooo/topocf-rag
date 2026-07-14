@@ -146,6 +146,22 @@ def test_evaluation_reports_complete_evidence_and_full_evidence_mrr() -> None:
     assert graph["full_evidence_mrr"] == pytest.approx(0.5)
 
 
+def test_evaluation_supports_variable_gold_document_counts() -> None:
+    question = RetrievalQuestion(
+        qid="four-gold",
+        dense_scores=(0.9, 0.8, 0.7, 0.1, 0.6),
+        bm25_scores=(0.9, 0.8, 0.7, 0.1, 0.6),
+        gold_indices=(0, 1, 2, 3),
+        mention_edges=(),
+        question_type="bridge_comparison",
+    )
+    metrics = evaluate_baseline([question], "dense", top_ks=(4, 5))
+    assert metrics["by_top_k"]["4"]["complete_gold_evidence_rate"] == 0.0
+    assert metrics["by_top_k"]["4"]["support_document_recall"] == 0.75
+    assert metrics["by_top_k"]["5"]["complete_gold_evidence_rate"] == 1.0
+    assert metrics["full_evidence_mrr"] == pytest.approx(0.2)
+
+
 def test_graph_diagnostics_quantify_recoverable_dense_failures() -> None:
     diagnostics = graph_diagnostics([_question("q-diagnostic")], top_ks=(2, 3))
     assert diagnostics["gold_pair_any_direction_rate"] == 1.0

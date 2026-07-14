@@ -157,3 +157,10 @@ integration.  It selects all graph hyperparameters on the frozen train split
 and evaluates the selected method once on frozen dev.  The exact methods,
 metrics, leakage controls, gate, and reproduction command are frozen in
 [`docs/GRAPH_RETRIEVAL_KILL_TEST.md`](docs/GRAPH_RETRIEVAL_KILL_TEST.md).
+
+After both Hotpot graph-retrieval gates pass, the clean balanced 2Wiki
+controlled-pool reproduction is run by
+`scripts/evaluate_2wiki_graph_retrieval.py`. It reports the frozen Hotpot
+configuration as a zero-shot transfer separately from a 2Wiki-train-selected
+secondary result; see
+[`docs/2WIKI_ADAPTER_PROTOCOL.md`](docs/2WIKI_ADAPTER_PROTOCOL.md).

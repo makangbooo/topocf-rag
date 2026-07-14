@@ -39,8 +39,9 @@ class RetrievalQuestion:
     qid: str
     dense_scores: tuple[float, ...]
     bm25_scores: tuple[float, ...]
-    gold_indices: tuple[int, int]
+    gold_indices: tuple[int, ...]
     mention_edges: tuple[tuple[int, int], ...]
+    question_type: str | None = None
 
     @property
     def document_count(self) -> int:
@@ -438,6 +439,7 @@ def evaluate_rankings(
     no_gold_counts = {top_k: 0 for top_k in normalized_top_ks}
     support_sums = {top_k: 0 for top_k in normalized_top_ks}
     reciprocal_full_evidence_ranks: list[float] = []
+    gold_document_total = 0
 
     for question, ranking_value in zip(questions, rankings, strict=True):
         ranking = tuple(ranking_value)
@@ -446,17 +448,25 @@ def evaluate_rankings(
                 "ranking must be a permutation of context document indices"
             )
         rank_by_index = {index: rank for rank, index in enumerate(ranking, start=1)}
+        if not question.gold_indices or len(set(question.gold_indices)) != len(
+            question.gold_indices
+        ):
+            raise GraphRetrievalInvariantError(
+                "gold indices must be non-empty and unique"
+            )
+        if any(index not in rank_by_index for index in question.gold_indices):
+            raise GraphRetrievalInvariantError("gold index is out of range")
         full_evidence_rank = max(
-            rank_by_index[question.gold_indices[0]],
-            rank_by_index[question.gold_indices[1]],
+            rank_by_index[index] for index in question.gold_indices
         )
         reciprocal_full_evidence_ranks.append(1.0 / full_evidence_rank)
         gold = set(question.gold_indices)
+        gold_document_total += len(gold)
         for top_k in normalized_top_ks:
             retrieved = set(ranking[: min(top_k, len(ranking))])
             found = len(gold.intersection(retrieved))
             support_sums[top_k] += found
-            complete_counts[top_k] += found == 2
+            complete_counts[top_k] += found == len(gold)
             at_least_one_counts[top_k] += found >= 1
             no_gold_counts[top_k] += found == 0
 
@@ -470,7 +480,7 @@ def evaluate_rankings(
             "at_least_one_gold_rate": at_least_one_counts[top_k] / count,
             "no_gold_count": no_gold_counts[top_k],
             "no_gold_rate": no_gold_counts[top_k] / count,
-            "support_document_recall": support_sums[top_k] / (2 * count),
+            "support_document_recall": support_sums[top_k] / gold_document_total,
         }
     return {
         "question_count": count,
