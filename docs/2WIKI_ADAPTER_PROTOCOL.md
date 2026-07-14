@@ -53,3 +53,18 @@ python scripts/prepare_2wiki_splits.py
 The two ID manifests contain IDs and provenance metadata only. The public
 audit contains aggregate counts, paths, and hashes and never embeds dataset
 text.
+
+## Frozen bge-m3 cache
+
+After the split audit passes, score each selected question against its ten
+official context documents with the local bge-m3 checkpoint:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python scripts/score_2wiki_contexts.py
+```
+
+The serialization and dense-scoring contract is identical to the Hotpot kill
+test: `title + newline + joined sentences`, maximum length 512, FP16 model
+execution, L2-normalized dense vectors, and cosine similarity. Gold supporting
+facts are not read by the scorer. Cache reuse requires exact source, ID-file,
+model-path, serialization-version, and maximum-length metadata matches.

@@ -13,6 +13,7 @@ data/cache/
 reports/cache/
 reports/*.jsonl
 reports/title_graph/cache/
+reports/graph_retrieval/cache/
 
 # Local credentials and editor state
 .env
