@@ -349,6 +349,37 @@ def graph_method_scores(
     )
 
 
+def degree_prior_scores(
+    question: RetrievalQuestion, config: GraphMethodConfig
+) -> tuple[float, ...]:
+    """Blend the selected seed with node receiving degree but not neighbors.
+
+    This is a structure-only control.  It retains which documents have high
+    degree under the selected propagation direction while removing the
+    query-conditioned message sent across each particular edge.
+    """
+
+    seed = _seed_scores(question, config.seed)
+    receiving_degree = [0.0] * question.document_count
+    for _source, target in _propagation_arcs(
+        question.mention_edges, config.direction
+    ):
+        if not 0 <= target < question.document_count:
+            raise GraphRetrievalInvariantError("mention edge index is out of range")
+        receiving_degree[target] += 1.0
+    prior = _normalize_positive(receiving_degree)
+    if config.family == "one_hop_max":
+        assert config.graph_weight is not None
+        graph_weight = config.graph_weight
+    else:
+        assert config.restart_probability is not None
+        graph_weight = 1.0 - config.restart_probability
+    return tuple(
+        (1.0 - graph_weight) * seed[index] + graph_weight * prior[index]
+        for index in range(question.document_count)
+    )
+
+
 def graph_candidate_grid() -> tuple[GraphMethodConfig, ...]:
     """Return the fully predeclared train-only model-selection grid."""
 
@@ -471,7 +502,7 @@ def evaluate_baseline(
 ) -> dict[str, Any]:
     return evaluate_rankings(
         questions,
-        [stable_rank(_baseline_scores(question, method)) for question in questions],
+        baseline_rankings(questions, method),
         top_ks=top_ks,
     )
 
@@ -484,7 +515,54 @@ def evaluate_graph_method(
 ) -> dict[str, Any]:
     return evaluate_rankings(
         questions,
-        [stable_rank(graph_method_scores(question, config)) for question in questions],
+        graph_rankings(questions, config),
+        top_ks=top_ks,
+    )
+
+
+def baseline_rankings(
+    questions: Sequence[RetrievalQuestion], method: str
+) -> tuple[tuple[int, ...], ...]:
+    """Return deterministic full rankings for a label-free baseline."""
+
+    return tuple(
+        stable_rank(_baseline_scores(question, method)) for question in questions
+    )
+
+
+def graph_rankings(
+    questions: Sequence[RetrievalQuestion], config: GraphMethodConfig
+) -> tuple[tuple[int, ...], ...]:
+    """Return deterministic full rankings for one graph method."""
+
+    return tuple(
+        stable_rank(graph_method_scores(question, config))
+        for question in questions
+    )
+
+
+def degree_prior_rankings(
+    questions: Sequence[RetrievalQuestion], config: GraphMethodConfig
+) -> tuple[tuple[int, ...], ...]:
+    """Return deterministic rankings for the degree-only control."""
+
+    return tuple(
+        stable_rank(degree_prior_scores(question, config))
+        for question in questions
+    )
+
+
+def evaluate_degree_prior(
+    questions: Sequence[RetrievalQuestion],
+    config: GraphMethodConfig,
+    *,
+    top_ks: Sequence[int] = DEFAULT_TOP_KS,
+) -> dict[str, Any]:
+    """Evaluate one query-independent degree-prior control."""
+
+    return evaluate_rankings(
+        questions,
+        degree_prior_rankings(questions, config),
         top_ks=top_ks,
     )
 

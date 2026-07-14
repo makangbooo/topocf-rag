@@ -66,3 +66,35 @@ python scripts/evaluate_graph_retrieval.py \
 
 The public report contains aggregate metrics, configurations, paths, and
 cryptographic hashes only.  It contains no question IDs or dataset text.
+
+## Robustness validation
+
+After the primary gate is frozen, run a separate validation rather than
+modifying or overwriting its report.  The validation reuses the train-selected
+graph configuration and adds four controls:
+
+1. comparison against the exact non-graph seed used by the selected method;
+2. a degree-only control whose seed, direction, and weight are independently
+   selected on frozen train, with no query-conditioned neighbor message;
+3. 200 deterministic question-local node-label permutations that preserve the
+   full graph isomorphism and degree sequence but break graph/document
+   alignment; and
+4. per-question win/loss transitions with two-sided exact McNemar tests.
+
+The robustness gate requires at least 0.02 absolute mean improvement over both
+the matched non-graph seed and degree-only control, empirical permutation
+`p <= 0.01` with the observed score above every null replicate, and positive
+paired gains with exact McNemar `p <= 0.01` at every K.  Direction ablations
+choose their configuration independently on frozen train; dev never selects a
+direction.
+
+```bash
+python scripts/validate_graph_retrieval.py \
+  --base-report reports/graph_retrieval/hotpot_kill_test.json \
+  --output reports/graph_retrieval/hotpot_kill_test_validation.json
+```
+
+Passing shows that the observed graph/document alignment, rather than merely
+BM25 fusion, graph density, or an arbitrary graph topology, drives the
+controlled-pool gain.  It still does not establish semantic direction
+reasoning, full-corpus performance, or the final topology-certificate claim.
