@@ -63,6 +63,27 @@ out deterministically to every matching paragraph occurrence. The exact-20,
 strict-unique-title pool is retained as a sensitivity analysis rather than the
 main experiment. No retrieval scoring occurs in Stage B.
 
+## Stage C: frozen ID manifests
+
+Stage B found no exact-text duplicate-title group, so every structurally valid
+record is label-unambiguous under paragraph-occurrence identity. The primary
+pool is restricted to the official 20-paragraph instances.
+
+Train is selected with seed `20260715` using nine cells: 2/3/4 hops crossed
+with unique titles, distractor-only title collisions, and supporting-title
+collisions. Exactly 200 records are selected per cell, for 1,800 total. Dev is
+not sampled: every eligible 20-paragraph record is retained in official JSONL
+order. The primary diagnostic aggregate is a macro average over the nine cells;
+official-distribution micro and the unique-title cells are secondary analyses.
+
+```bash
+python scripts/prepare_musique_splits.py
+```
+
+Only ID manifests and content-free aggregate audit reports are written. Passing
+Stage C authorizes local bge-m3 context scoring but not graph method selection
+on dev.
+
 ## Planned later stages
 
 After the schema output is reviewed, a separate commit will freeze a
