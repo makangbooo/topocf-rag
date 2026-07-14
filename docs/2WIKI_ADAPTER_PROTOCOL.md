@@ -92,3 +92,24 @@ The zero-shot reproduction gate requires at least +0.02 absolute macro mean
 complete-evidence retrieval over the matching RRF baseline, with no more than
 0.01 absolute macro regression at any frozen extra budget. This gate is fixed
 before observing 2Wiki retrieval outcomes.
+
+## Post-primary robustness validation
+
+Because the primary 2Wiki outcome is known before these controls are declared,
+the validation report explicitly marks itself as post-primary rather than
+preregistered evidence. It compares the frozen Hotpot transfer against the
+strongest non-graph baseline selected on 2Wiki train, a separately
+train-selected degree-only control, 200 deterministic node-label
+permutations, and paired exact McNemar tests at every extra budget.
+
+```bash
+python scripts/validate_2wiki_graph_retrieval.py \
+  --base-report reports/graph_retrieval/2wiki_graph_retrieval.json \
+  --output reports/graph_retrieval/2wiki_graph_retrieval_validation.json
+```
+
+The validation gate requires at least +0.02 over both the strongest non-graph
+and degree-only controls, no more than 0.01 regression at any macro budget
+against the strongest baseline, permutation `p <= 0.01` with the observed
+score above the null maximum, and positive exact-McNemar gains with
+`p <= 0.01` at every budget.
