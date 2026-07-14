@@ -141,3 +141,13 @@ cd ~/topocf-rag
 The decision and continuation options are documented in
 [`docs/PHASE1_DESIGN_GATE.md`](docs/PHASE1_DESIGN_GATE.md). Aggregate counts
 and input hashes are in `reports/phase1/design_audit.json`.
+
+## Graph-aware retrieval kill test
+
+The Phase 0 title graph was originally constructed after dense retrieval.  A
+separate, label-free kill test now measures whether that graph can improve
+complete evidence retrieval before any verifier training or 2Wiki/MuSiQue
+integration.  It selects all graph hyperparameters on the frozen train split
+and evaluates the selected method once on frozen dev.  The exact methods,
+metrics, leakage controls, gate, and reproduction command are frozen in
+[`docs/GRAPH_RETRIEVAL_KILL_TEST.md`](docs/GRAPH_RETRIEVAL_KILL_TEST.md).
