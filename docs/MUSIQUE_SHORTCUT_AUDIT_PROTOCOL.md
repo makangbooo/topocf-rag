@@ -42,6 +42,27 @@ Hop-count, paragraph-count, and exclusion histograms must be inspected before
 sample sizes or retrieval budgets are frozen. No dev result may influence a
 retrieval method or hyperparameter.
 
+## Stage B: duplicate-title and label-ambiguity audit
+
+Stage A showed that strict unique-title identity would remove roughly half of
+both official splits. Those records must not be silently discarded. Stage B
+separates duplicate titles with distinct paragraph text from exact-text
+duplicates that mix supporting and non-supporting labels.
+
+```bash
+python scripts/audit_musique_duplicates.py \
+  --schema-report reports/musique/schema_audit.json \
+  --output reports/musique/duplicate_title_audit.json
+```
+
+Before observing Stage B counts, the planned primary pool is frozen as records
+with exactly 20 paragraphs that satisfy every structural contract except title
+uniqueness and contain no exact-text duplicate-title group with mixed support
+labels. Paragraph `idx` is the node identity. A normalized title mention fans
+out deterministically to every matching paragraph occurrence. The exact-20,
+strict-unique-title pool is retained as a sensitivity analysis rather than the
+main experiment. No retrieval scoring occurs in Stage B.
+
 ## Planned later stages
 
 After the schema output is reviewed, a separate commit will freeze a
