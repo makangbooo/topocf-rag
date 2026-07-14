@@ -113,6 +113,12 @@ on synthetic perturbations is a stop signal, not evidence of the thesis claim.
 The second dataset is 2WikiMultiHopQA and is intentionally deferred until the
 HotpotQA kill test passes.
 
+After that gate passes, `scripts/prepare_2wiki_splits.py` applies the frozen
+label-integrity and title-identity checks in
+[`docs/2WIKI_ADAPTER_PROTOCOL.md`](docs/2WIKI_ADAPTER_PROTOCOL.md), then writes
+deterministic balanced train and dev ID manifests without serializing dataset
+text.
+
 The completed bootstrap results and limitations are in
 [`docs/PHASE0_REPORT.md`](docs/PHASE0_REPORT.md). The machine-readable graph
 statistics, including full natural-candidate histograms, are in
