@@ -84,10 +84,28 @@ Only ID manifests and content-free aggregate audit reports are written. Passing
 Stage C authorizes local bge-m3 context scoring but not graph method selection
 on dev.
 
+## Stage D: frozen dense retrieval caches
+
+Local bge-m3 scores every frozen question against its 20 official paragraph
+occurrences. The serialization is `title + newline + paragraph_text` and the
+official paragraph order is preserved. Cache rows contain only question IDs,
+paragraph indices, cosine scores, and truncated token lengths. Duplicate titles
+remain separate paragraph-occurrence nodes.
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python scripts/score_musique_contexts.py
+```
+
+The scoring script verifies the Stage C gate, both manifest hashes, both source
+hashes, the frozen Stage C report hash, the local model and tokenizer
+fingerprints, all nine hop-collision allocations, and every cache alignment
+before it writes the aggregate report. Gold support flags, answers, and
+decompositions do not enter the score computation. No retrieval metric or graph
+configuration is selected in Stage D.
+
 ## Planned later stages
 
-After the schema output is reviewed, a separate commit will freeze a
-hop-stratified train/dev ID sample. Retrieval scoring will reuse local bge-m3
-and compare dense, query-independent receiving degree, and query-conditioned
-graph propagation under equal extra-evidence budgets. Gold labels will be used
-only for aggregate evaluation and never for scores, graphs, or tie breaking.
+After the Stage D cache is reviewed, graph construction will compare dense,
+query-independent receiving degree, and query-conditioned propagation under
+equal extra-evidence budgets. Gold labels will be used only for aggregate
+evaluation and never for scores, graphs, or tie breaking.
