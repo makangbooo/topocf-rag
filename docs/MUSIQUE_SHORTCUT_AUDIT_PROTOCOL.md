@@ -103,9 +103,33 @@ before it writes the aggregate report. Gold support flags, answers, and
 decompositions do not enter the score computation. No retrieval metric or graph
 configuration is selected in Stage D.
 
+## Stage E: occurrence-aware graph and shortcut controls
+
+Paragraph `idx` remains the graph node identity. A boundary-safe literal title
+mention in one paragraph body creates a directed edge to every other paragraph
+occurrence with that normalized title; same-title occurrences are never merged
+and self-links are excluded.
+
+The same predeclared 36-configuration grid is used for the real graph and the
+degree-only control. The strongest non-graph baseline, real graph configuration,
+and degree-only configuration are selected independently on the balanced train
+split using the nine-cell macro metric. Dev is evaluated once. The frozen
+Hotpot configuration is also reported as a zero-shot transfer result.
+
+Top-K is the question's gold paragraph count plus an extra budget of 0, 1, or
+3. A positive mechanism gate requires the selected real graph to beat both the
+train-selected non-graph baseline and independently train-selected degree-only
+control, outperform 200 question-local node-identity permutations, and produce
+significant paired gains at every budget. Failure is a scientific result and
+forbids a query-conditioned graph-gain claim.
+
+```bash
+python scripts/evaluate_musique_graph_retrieval.py \
+  --no-fail-on-gate
+```
+
 ## Planned later stages
 
-After the Stage D cache is reviewed, graph construction will compare dense,
-query-independent receiving degree, and query-conditioned propagation under
-equal extra-evidence budgets. Gold labels will be used only for aggregate
-evaluation and never for scores, graphs, or tie breaking.
+After Stage E is reviewed, the next experiment is chosen from the frozen gate
+outcome. Gold labels remain restricted to aggregate evaluation and frozen
+strata; they never enter scores, graph edges, propagation, or tie breaking.
