@@ -128,8 +128,49 @@ python scripts/evaluate_musique_graph_retrieval.py \
   --no-fail-on-gate
 ```
 
+Stage E selected `one_hop_max__dense__undirected__w0.75` on train and passed
+the frozen dev gate. The result supports a narrow query-conditioned graph
+alignment claim inside the official 20-paragraph pools. It does not establish
+directed topology reasoning, uniform gains across hop/collision cells, QA
+generation gains, or full-corpus GraphRAG performance.
+
+## Stage F: post-primary robustness and claim-boundary audit
+
+Stage F was declared after observing Stage E and is explicitly not
+preregistered evidence. It binds the exact Stage E report SHA256 and first
+reproduces all selected train/dev metrics. It then runs three deterministic,
+nine-cell-stratified paired bootstraps comparing the frozen graph against:
+
+1. the train-selected dense baseline;
+2. the independently train-selected degree-only control; and
+3. a degree-only control using exactly the graph method's family, seed,
+   direction, and weight.
+
+The bootstrap resamples questions with replacement within every frozen cell,
+macros equally over cells, and reports percentile 95% intervals for each
+budget and their mean. The primary post-primary robustness gate requires the
+mean-delta lower bound to exceed zero for all three comparisons.
+
+Two train-only diagnostics do not enter that gate. A 500-replicate stratified
+bootstrap measures graph-configuration selection stability. A nine-fold
+leave-one-cell-out analysis selects the graph, baseline, and degree control on
+eight balanced train cells and evaluates the ninth. Direction-specific train
+selection and fixed-config direction variants are reported as sensitivity
+analyses; dev never selects a configuration.
+
+```bash
+python scripts/validate_musique_graph_retrieval.py \
+  --no-fail-on-gate
+```
+
+Even if Stage F passes, the authorized claim remains limited to a small
+query-conditioned retrieval-alignment gain in the frozen MuSiQue candidate
+pools. Because the primary method is undirected and subgroup effects are
+heterogeneous, directed-reasoning and uniform-improvement claims remain
+forbidden.
+
 ## Planned later stages
 
-After Stage E is reviewed, the next experiment is chosen from the frozen gate
+After Stage F is reviewed, the next experiment is chosen from the robustness
 outcome. Gold labels remain restricted to aggregate evaluation and frozen
 strata; they never enter scores, graph edges, propagation, or tie breaking.

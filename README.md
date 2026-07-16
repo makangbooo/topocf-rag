@@ -164,3 +164,12 @@ controlled-pool reproduction is run by
 configuration as a zero-shot transfer separately from a 2Wiki-train-selected
 secondary result; see
 [`docs/2WIKI_ADAPTER_PROTOCOL.md`](docs/2WIKI_ADAPTER_PROTOCOL.md).
+
+The MuSiQue occurrence-aware shortcut audit is documented in
+[`docs/MUSIQUE_SHORTCUT_AUDIT_PROTOCOL.md`](docs/MUSIQUE_SHORTCUT_AUDIT_PROTOCOL.md).
+After the Stage E primary graph gate, run the hash-bound post-primary Stage F
+robustness analysis with:
+
+```bash
+python scripts/validate_musique_graph_retrieval.py --no-fail-on-gate
+```
