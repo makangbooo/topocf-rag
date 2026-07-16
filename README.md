@@ -126,12 +126,18 @@ statistics, including full natural-candidate histograms, are in
 
 ## Phase 1 design gate
 
-Phase 1a audited the requested T1/T2/T3 generators before freezing formal
-pairs. It found that T1 and T2 have the same canonical typed collider topology,
-while a valid directed T3 two-switch requires four documents and cannot be
-represented by the current two-document `CandidatePath`. Formal pair
-generation, Phase 1 bge-m3 scoring, and verifier training are therefore paused
-until a common input representation is selected.
+Phase 1a found that T1 and T2 have the same canonical typed collider topology
+and that a valid directed T3 two-switch needs four documents. Option A was then
+implemented: formal four-document `EvidenceTopology` manifests and BM25/bge-m3
+baselines are frozen for train and dev.
+
+A later structural leakage audit changed the training decision. On the mixed
+T1/T2/T3 task, a content-free metadata rule reaches 0.9912 question-macro
+pairwise accuracy on dev. T1, T2, fork, and double-collider are therefore
+diagnostic-only. The new primary method-development task is T3 document-node
+binding under matched canonical topology and matched per-node relation degree.
+It uses mandatory `S4` alias-permutation control, counterfactual ranking, and a
+structured repair objective.
 
 The implemented support includes validated `EvidenceTopology` objects,
 canonical signatures, strict matched-pair checks, question-local BM25, and
@@ -144,9 +150,14 @@ cd ~/topocf-rag
 .venv/bin/python -m pytest -q
 ```
 
-The decision and continuation options are documented in
-[`docs/PHASE1_DESIGN_GATE.md`](docs/PHASE1_DESIGN_GATE.md). Aggregate counts
-and input hashes are in `reports/phase1/design_audit.json`.
+The original representation decision is documented in
+[`docs/PHASE1_DESIGN_GATE.md`](docs/PHASE1_DESIGN_GATE.md). The current method,
+gates, baselines, and ablations are frozen in
+[`docs/TOPOCF_BIND_REPAIR_PROTOCOL.md`](docs/TOPOCF_BIND_REPAIR_PROTOCOL.md).
+Run `scripts/audit_method_readiness.py` before any training. The current audit
+authorizes bounded synthetic-T3 method development, but the all-observed
+HotpotQA confirmatory set has only 12 dev questions and does not authorize a
+paper claim.
 
 ## Graph-aware retrieval kill test
 

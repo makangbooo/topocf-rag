@@ -9,9 +9,11 @@ determine whether T1, T2, and T3 are distinct, implementable topology
 interventions under the frozen matching contract before materializing formal
 pairs, scoring them with bge-m3, or training a verifier.
 
-This gate is not a verifier experiment. No formal Phase 1 pairs have been
-frozen, no Phase 1 bge-m3 baseline has been run, and no verifier has been
-trained.
+This document records the pre-materialization decision. Option A was
+subsequently selected and implemented with a common four-document
+`EvidenceTopology`; formal manifests and BM25/bge-m3 baselines now exist. The
+current post-materialization decision is in
+`TOPOCF_BIND_REPAIR_PROTOCOL.md` and supersedes the paused status below.
 
 ## Formal objects
 
@@ -128,8 +130,9 @@ unseen canonical topology. Calling the current protocol
 
 ## Gate decision
 
-Formal pair materialization, Phase 1 bge-m3 scoring, verifier training, and the
-planned LOPO experiment remain paused for the following reasons:
+At the time of this design gate, formal pair materialization, Phase 1 bge-m3
+scoring, verifier training, and the planned LOPO experiment were paused for the
+following reasons:
 
 1. The two-document `CandidatePath` representation cannot encode T1 or the
    all-real T2 collider without pretending that a non-path subgraph is a path.
@@ -162,6 +165,11 @@ synthetic strata.
 
 This option gives every generator one schema and one evidence budget while
 making the actual generalization claim explicit.
+
+Option A was selected after this audit. Post-materialization structural rules
+then showed that the mixed generator task is trivial from explicit topology.
+The current protocol keeps only degree- and topology-matched T3 as the primary
+development task and treats the other generators as diagnostics.
 
 ### Option B: retain the two-document path abstraction
 

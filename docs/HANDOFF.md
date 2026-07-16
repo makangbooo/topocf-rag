@@ -1,35 +1,35 @@
 # Project Handoff
 
-Updated: 2026-07-12
+Updated: 2026-07-16
 
 ## Current status
 
-Phase 0 passed its 60% graph-coverage gate. Phase 1a then found a representation
-conflict before formal pair materialization: T1 and T2 share one canonical
-typed collider signature, and a valid T3 two-switch requires a four-document
-subgraph rather than the current two-document path. Do not generate formal
-pairs, run Phase 1 bge-m3 baselines, or train a verifier until the common input
-budget is selected.
+Phase 0 passed its graph-coverage gate. Phase 1 Option A was implemented with a
+fixed four-document `EvidenceTopology`, frozen pair manifests, and BM25/bge-m3
+baselines. A content-free structural audit then showed that the mixed
+T1/T2/T3 task is shortcut-solvable: the best metadata rule reaches 0.9912 on
+dev. Do not train on the mixed generator pool.
 
-The recommended continuation is Option A in `PHASE1_DESIGN_GATE.md`: use one
-fixed four-document, two-path `EvidenceTopology` schema for T1/T2/T3, call the
-evaluation leave-one-generator-out, and separate all-observed T2 from
-synthetic-edge and natural-error strata. The alternative is to keep a
-two-document path, merge T1/T2, drop T3, and design a genuinely non-isomorphic
-replacement.
+The current continuation is `TopoCF-Bind-Repair-v1`. Train only on
+`synthetic_common/t3`; reserve `all_observed_rewire/t3_all_observed` as an
+untouched confirmatory stratum; use T1/T2/fork/double-collider only as
+diagnostics. Exact S4 alias-permutation control, counterfactual ranking, and
+structured binding repair are mandatory. See
+`TOPOCF_BIND_REPAIR_PROTOCOL.md` and run `scripts/audit_method_readiness.py`
+before training.
 
-Current aggregate feasibility:
+Current primary feasibility:
 
-- T1/T2: 747 train questions and 340 dev questions.
-- Synthetic four-document T3: 450 operations/184 train questions and 187/74
-  dev.
-- Natural all-real four-document switches: 65/27 train and 28/12 dev.
-- Valid single-path T3: zero.
+- synthetic T3 development: 368 pairs/161 train questions and 150/65 dev;
+- all-observed T3 confirmation: 65/27 train and 28/12 dev;
+- model-visible permutation-invariant structural rules: 0.5 on both T3 strata;
+- all-observed HotpotQA dev remains underpowered relative to the minimum 50.
 
 Run the design audit with:
 
 ```bash
 .venv/bin/python scripts/audit_phase1_design.py
+.venv/bin/python scripts/audit_method_readiness.py
 ```
 
 ## Mission

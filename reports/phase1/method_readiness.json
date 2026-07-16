@@ -1,0 +1,481 @@
+{
+  "artifacts": {
+    "phase1_baselines": {
+      "path": "reports/phase1/baselines.json",
+      "sha256": "11730cfdee9b0626feb8597092188f95dba03e87fcf2f9651f118c6084b58844"
+    },
+    "rule_leakage": {
+      "path": "reports/certificate_v1/rule_leakage.json",
+      "sha256": "338e82a73a74852eb0d7be85b7ec03fbfe894a809217bd31b9687f1df40bbf8f"
+    },
+    "synthetic_dev_manifest": {
+      "path": "data/phase1/hotpot_dev_phase1_pairs.json",
+      "sha256": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35"
+    },
+    "synthetic_train_manifest": {
+      "path": "data/phase1/hotpot_train_phase1_pairs.json",
+      "sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+    }
+  },
+  "config_sha256": "44621be182e7df435e4f9f93812451852a3f470326baaa046757ee1a49239b1b",
+  "confirmatory_all_observed": {
+    "dev_distractor": {
+      "canonical_summary": {
+        "negative_signature_count": 1,
+        "pair_class_count": 1,
+        "positive_signature_count": 1
+      },
+      "checks": {
+        "canonical_topology_matched": {
+          "count": 28,
+          "passed": true,
+          "rate": 1.0
+        },
+        "fixed_four_document_payload": {
+          "count": 28,
+          "passed": true,
+          "rate": 1.0
+        },
+        "four_edges_each": {
+          "count": 28,
+          "passed": true,
+          "rate": 1.0
+        },
+        "per_node_relation_degree_matched": {
+          "count": 28,
+          "passed": true,
+          "rate": 1.0
+        },
+        "positive_all_observed": {
+          "count": 28,
+          "passed": true,
+          "rate": 1.0
+        },
+        "relation_multiset_matched": {
+          "count": 28,
+          "passed": true,
+          "rate": 1.0
+        }
+      },
+      "counts": {
+        "base_count": 28,
+        "pair_count": 28,
+        "question_count": 12
+      },
+      "negative_observed_edge_histogram": {
+        "4_of_4": 28
+      },
+      "passed": true,
+      "selector": {
+        "stratum": "all_observed_rewire",
+        "variant": "t3_all_observed"
+      }
+    },
+    "train": {
+      "canonical_summary": {
+        "negative_signature_count": 1,
+        "pair_class_count": 1,
+        "positive_signature_count": 1
+      },
+      "checks": {
+        "canonical_topology_matched": {
+          "count": 65,
+          "passed": true,
+          "rate": 1.0
+        },
+        "fixed_four_document_payload": {
+          "count": 65,
+          "passed": true,
+          "rate": 1.0
+        },
+        "four_edges_each": {
+          "count": 65,
+          "passed": true,
+          "rate": 1.0
+        },
+        "per_node_relation_degree_matched": {
+          "count": 65,
+          "passed": true,
+          "rate": 1.0
+        },
+        "positive_all_observed": {
+          "count": 65,
+          "passed": true,
+          "rate": 1.0
+        },
+        "relation_multiset_matched": {
+          "count": 65,
+          "passed": true,
+          "rate": 1.0
+        }
+      },
+      "counts": {
+        "base_count": 65,
+        "pair_count": 65,
+        "question_count": 27
+      },
+      "negative_observed_edge_histogram": {
+        "4_of_4": 65
+      },
+      "passed": true,
+      "selector": {
+        "stratum": "all_observed_rewire",
+        "variant": "t3_all_observed"
+      }
+    }
+  },
+  "content_contract": "aggregate manifest metadata, rule metrics, counts, and hashes only; no question, answer, title, sentence, or source text",
+  "diagnostic_only_selectors": [
+    {
+      "stratum": "synthetic_common",
+      "variant": "t1"
+    },
+    {
+      "stratum": "synthetic_common",
+      "variant": "t2"
+    },
+    {
+      "stratum": "t2_all_observed",
+      "variant": "t2"
+    },
+    {
+      "stratum": "synthetic_common",
+      "variant": "fork"
+    },
+    {
+      "stratum": "synthetic_common",
+      "variant": "double_collider"
+    }
+  ],
+  "gates": {
+    "confirmatory_evaluation": {
+      "checks": {
+        "dev_aggregate_counts_match": true,
+        "dev_pair_contract": true,
+        "dev_question_capacity": false,
+        "dev_visible_rule_gate": true,
+        "negative_edges_all_observed": true,
+        "train_aggregate_counts_match": true,
+        "train_pair_contract": true,
+        "train_visible_rule_gate": true
+      },
+      "passed": false,
+      "status": "underpowered_hotpot_all_observed_stratum"
+    },
+    "development_training": {
+      "checks": {
+        "baseline_hash_bound": true,
+        "dev_aggregate_counts_match": true,
+        "dev_pair_contract": true,
+        "dev_question_capacity": true,
+        "dev_visible_rule_gate": true,
+        "observed_and_provenance_metadata_hidden_required": true,
+        "s4_alias_permutation_control_required": true,
+        "train_aggregate_counts_match": true,
+        "train_dev_question_disjoint": true,
+        "train_pair_contract": true,
+        "train_question_capacity": true,
+        "train_visible_rule_gate": true
+      },
+      "passed": true,
+      "status": "authorized_for_bounded_method_development"
+    },
+    "paper_claim": {
+      "passed": false,
+      "remaining_requirements": [
+        "implement and verify exact S4 score invariance",
+        "train the counterfactual ranking plus structured repair objective",
+        "expand the all-observed confirmatory stratum to the frozen minimum",
+        "build a schema-matched natural-retrieval-error evaluation",
+        "replicate the frozen method on a second official dataset"
+      ],
+      "status": "not_authorized_by_readiness_audit"
+    }
+  },
+  "interpretation": {
+    "why_t1_t2_are_not_primary": "their labels are recoverable from explicit reachability/canonical topology, so they measure graph parsing rather than semantic binding",
+    "why_t3_is_primary": "positive and negative match canonical typed topology and every node's per-relation directed degree; the signal is document-node binding",
+    "why_training_is_bounded": "the synthetic T3 split supports development, but the all-observed HotpotQA confirmatory split is below the preregistered sample minimum"
+  },
+  "method": {
+    "claim": "question-conditioned document-node binding and evidence repair under matched typed topology",
+    "name": "TopoCF-Bind-Repair-v1",
+    "permutation_protocol": {
+      "dev_and_test": "average the candidate score over all 24 document-alias permutations before ranking",
+      "train": "sample one deterministic epoch-dependent S4 permutation per matched pair and apply it identically to the positive and negative members",
+      "unit_of_invariance": "question, immutable document texts, and typed edges are relabeled together",
+      "why": "prevents sequence position or neutral alias from becoming a label shortcut"
+    },
+    "training_objective": {
+      "counterfactual_ranking": "paired margin loss: score(question, positive binding) > score(question, target-swapped binding)",
+      "forbidden_training_examples": "T1, T2, fork, double-collider, natural retrieval errors, dev, and all-observed confirmatory pairs",
+      "structured_repair": "predict the two mention-edge endpoints that restore the positive binding from the counterfactual candidate",
+      "total": "ranking_loss + lambda_repair * repair_loss; lambda selected on train-only inner validation"
+    }
+  },
+  "primary_development": {
+    "dev_distractor": {
+      "canonical_summary": {
+        "negative_signature_count": 1,
+        "pair_class_count": 1,
+        "positive_signature_count": 1
+      },
+      "checks": {
+        "canonical_topology_matched": {
+          "count": 150,
+          "passed": true,
+          "rate": 1.0
+        },
+        "fixed_four_document_payload": {
+          "count": 150,
+          "passed": true,
+          "rate": 1.0
+        },
+        "four_edges_each": {
+          "count": 150,
+          "passed": true,
+          "rate": 1.0
+        },
+        "per_node_relation_degree_matched": {
+          "count": 150,
+          "passed": true,
+          "rate": 1.0
+        },
+        "positive_all_observed": {
+          "count": 150,
+          "passed": true,
+          "rate": 1.0
+        },
+        "relation_multiset_matched": {
+          "count": 150,
+          "passed": true,
+          "rate": 1.0
+        }
+      },
+      "counts": {
+        "base_count": 150,
+        "pair_count": 150,
+        "question_count": 65
+      },
+      "negative_observed_edge_histogram": {
+        "2_of_4": 150
+      },
+      "passed": true,
+      "selector": {
+        "stratum": "synthetic_common",
+        "variant": "t3"
+      }
+    },
+    "train": {
+      "canonical_summary": {
+        "negative_signature_count": 1,
+        "pair_class_count": 1,
+        "positive_signature_count": 1
+      },
+      "checks": {
+        "canonical_topology_matched": {
+          "count": 368,
+          "passed": true,
+          "rate": 1.0
+        },
+        "fixed_four_document_payload": {
+          "count": 368,
+          "passed": true,
+          "rate": 1.0
+        },
+        "four_edges_each": {
+          "count": 368,
+          "passed": true,
+          "rate": 1.0
+        },
+        "per_node_relation_degree_matched": {
+          "count": 368,
+          "passed": true,
+          "rate": 1.0
+        },
+        "positive_all_observed": {
+          "count": 368,
+          "passed": true,
+          "rate": 1.0
+        },
+        "relation_multiset_matched": {
+          "count": 368,
+          "passed": true,
+          "rate": 1.0
+        }
+      },
+      "counts": {
+        "base_count": 368,
+        "pair_count": 368,
+        "question_count": 161
+      },
+      "negative_observed_edge_histogram": {
+        "2_of_4": 368
+      },
+      "passed": true,
+      "selector": {
+        "stratum": "synthetic_common",
+        "variant": "t3"
+      }
+    }
+  },
+  "rule_controls": {
+    "confirmatory_dev": {
+      "alias_control": "random S4 relabeling during training and exact 24-permutation score averaging during dev/test are mandatory",
+      "alias_sensitive_lookup_accuracy": 0.7138888888888889,
+      "best_model_visible_permutation_invariant_rule": {
+        "name": "root_reachable_fraction_all_edges",
+        "value": 0.5
+      },
+      "forbidden_hidden_metadata_rules": {
+        "composable_two_hop_fraction_observed_edges": 0.5,
+        "observed_edge_fraction": 0.5,
+        "observed_title_mention_fraction": 0.5,
+        "root_reachable_fraction_observed_edges": 0.5
+      },
+      "hidden_metadata_interpretation": "observed/provenance metadata is excluded from the serializer; these scores audit the consequence of accidentally exposing it",
+      "max_allowed_accuracy": 0.55,
+      "model_visible_permutation_invariant_rules": {
+        "canonical_topology_lookup": 0.5,
+        "composable_two_hop_fraction_all_edges": 0.5,
+        "degree_profile_lookup": 0.5,
+        "root_reachable_fraction_all_edges": 0.5
+      },
+      "pair_count": 28,
+      "passed": true,
+      "question_count": 12
+    },
+    "confirmatory_train": {
+      "alias_control": "random S4 relabeling during training and exact 24-permutation score averaging during dev/test are mandatory",
+      "alias_sensitive_lookup_accuracy": 0.48606701940035263,
+      "best_model_visible_permutation_invariant_rule": {
+        "name": "root_reachable_fraction_all_edges",
+        "value": 0.5
+      },
+      "forbidden_hidden_metadata_rules": {
+        "composable_two_hop_fraction_observed_edges": 0.5,
+        "observed_edge_fraction": 0.5,
+        "observed_title_mention_fraction": 0.5,
+        "root_reachable_fraction_observed_edges": 0.5
+      },
+      "hidden_metadata_interpretation": "observed/provenance metadata is excluded from the serializer; these scores audit the consequence of accidentally exposing it",
+      "max_allowed_accuracy": 0.55,
+      "model_visible_permutation_invariant_rules": {
+        "canonical_topology_lookup": 0.5,
+        "composable_two_hop_fraction_all_edges": 0.5,
+        "degree_profile_lookup": 0.5,
+        "root_reachable_fraction_all_edges": 0.5
+      },
+      "pair_count": 65,
+      "passed": true,
+      "question_count": 27
+    },
+    "development_dev": {
+      "alias_control": "random S4 relabeling during training and exact 24-permutation score averaging during dev/test are mandatory",
+      "alias_sensitive_lookup_accuracy": 0.48216117216117205,
+      "best_model_visible_permutation_invariant_rule": {
+        "name": "root_reachable_fraction_all_edges",
+        "value": 0.5
+      },
+      "forbidden_hidden_metadata_rules": {
+        "composable_two_hop_fraction_observed_edges": 1.0,
+        "observed_edge_fraction": 1.0,
+        "observed_title_mention_fraction": 1.0,
+        "root_reachable_fraction_observed_edges": 1.0
+      },
+      "hidden_metadata_interpretation": "observed/provenance metadata is excluded from the serializer; these scores audit the consequence of accidentally exposing it",
+      "max_allowed_accuracy": 0.55,
+      "model_visible_permutation_invariant_rules": {
+        "canonical_topology_lookup": 0.5,
+        "composable_two_hop_fraction_all_edges": 0.5,
+        "degree_profile_lookup": 0.5,
+        "root_reachable_fraction_all_edges": 0.5
+      },
+      "pair_count": 150,
+      "passed": true,
+      "question_count": 65
+    },
+    "development_train": {
+      "alias_control": "random S4 relabeling during training and exact 24-permutation score averaging during dev/test are mandatory",
+      "alias_sensitive_lookup_accuracy": 0.48017351868283525,
+      "best_model_visible_permutation_invariant_rule": {
+        "name": "root_reachable_fraction_all_edges",
+        "value": 0.5
+      },
+      "forbidden_hidden_metadata_rules": {
+        "composable_two_hop_fraction_observed_edges": 1.0,
+        "observed_edge_fraction": 1.0,
+        "observed_title_mention_fraction": 1.0,
+        "root_reachable_fraction_observed_edges": 1.0
+      },
+      "hidden_metadata_interpretation": "observed/provenance metadata is excluded from the serializer; these scores audit the consequence of accidentally exposing it",
+      "max_allowed_accuracy": 0.55,
+      "model_visible_permutation_invariant_rules": {
+        "canonical_topology_lookup": 0.5,
+        "composable_two_hop_fraction_all_edges": 0.5,
+        "degree_profile_lookup": 0.5,
+        "root_reachable_fraction_all_edges": 0.5
+      },
+      "pair_count": 368,
+      "passed": true,
+      "question_count": 161
+    }
+  },
+  "schema_version": 1,
+  "semantic_baselines": {
+    "confirmatory_dev": {
+      "counts": {
+        "base_count": 28,
+        "pair_count": 28,
+        "question_count": 12,
+        "unique_serialization_count": 56
+      },
+      "question_macro_pairwise_accuracy": {
+        "bge_m3_dense_cosine": 0.4583333333333333,
+        "bm25": 0.5
+      }
+    },
+    "confirmatory_train": {
+      "counts": {
+        "base_count": 65,
+        "pair_count": 65,
+        "question_count": 27,
+        "unique_serialization_count": 130
+      },
+      "question_macro_pairwise_accuracy": {
+        "bge_m3_dense_cosine": 0.38077601410934747,
+        "bm25": 0.5
+      }
+    },
+    "development_dev": {
+      "counts": {
+        "base_count": 150,
+        "pair_count": 150,
+        "question_count": 65,
+        "unique_serialization_count": 300
+      },
+      "question_macro_pairwise_accuracy": {
+        "bge_m3_dense_cosine": 0.4830402930402931,
+        "bm25": 0.5
+      }
+    },
+    "development_train": {
+      "counts": {
+        "base_count": 368,
+        "pair_count": 368,
+        "question_count": 161,
+        "unique_serialization_count": 736
+      },
+      "question_macro_pairwise_accuracy": {
+        "bge_m3_dense_cosine": 0.4614709651976734,
+        "bm25": 0.5
+      }
+    }
+  },
+  "split_integrity": {
+    "dev_question_count": 109,
+    "overlap_count": 0,
+    "passed": true,
+    "train_question_count": 275
+  }
+}

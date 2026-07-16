@@ -3,9 +3,14 @@ from __future__ import annotations
 import hashlib
 import re
 
+import pytest
+
 from topocf_rag.serialization import (
     SERIALIZER_VERSION,
+    all_four_document_relabelings,
     count_serialization_tokens,
+    deterministic_training_relabeling,
+    relabel_evidence_topology,
     serialize_evidence_topology,
 )
 from topocf_rag.topology import EvidenceDocument, EvidenceTopology, TypedEdge
@@ -240,3 +245,83 @@ def test_matched_relation_multisets_have_identical_token_budgets() -> None:
         )
         assert positive_stats == negative_stats
         assert positive_stats.truncated is False
+
+
+def test_s4_relabeling_moves_documents_and_edges_together() -> None:
+    original = topology(
+        (
+            retrieval("d0"),
+            retrieval("d2"),
+            mention("d0", "d1"),
+            mention("d2", "d3"),
+        ),
+        count=4,
+    )
+    relabeled = relabel_evidence_topology(
+        original, ("d2", "d0", "d3", "d1")
+    )
+
+    assert [document.title for document in relabeled.documents] == [
+        "Neutral Title 2",
+        "Neutral Title 0",
+        "Neutral Title 3",
+        "Neutral Title 1",
+    ]
+    assert {
+        edge.structural_key for edge in relabeled.edges
+    } == {
+        ("retrieval", "q", "d0"),
+        ("retrieval", "q", "d1"),
+        ("title_mention", "d0", "d2"),
+        ("title_mention", "d1", "d3"),
+    }
+    assert relabeled.canonical_signature == original.canonical_signature
+    assert relabeled.relation_multiset == original.relation_multiset
+
+
+def test_exact_s4_orbit_has_24_deterministic_serializations() -> None:
+    original = topology(
+        (
+            retrieval("d0"),
+            retrieval("d2"),
+            mention("d0", "d1"),
+            mention("d2", "d3"),
+        ),
+        count=4,
+    )
+    first = all_four_document_relabelings(original)
+    second = all_four_document_relabelings(original)
+
+    assert len(first) == 24
+    assert first == second
+    assert len(
+        {serialize_evidence_topology(item).sha256 for item in first}
+    ) == 24
+    assert {item.canonical_signature for item in first} == {
+        original.canonical_signature
+    }
+
+
+def test_training_relabeling_is_reproducible_and_validated() -> None:
+    original = topology(
+        (
+            retrieval("d0"),
+            retrieval("d2"),
+            mention("d0", "d1"),
+            mention("d2", "d3"),
+        ),
+        count=4,
+    )
+    first = deterministic_training_relabeling(
+        original, seed=20260716, epoch=3, item_key="fixture-item"
+    )
+    second = deterministic_training_relabeling(
+        original, seed=20260716, epoch=3, item_key="fixture-item"
+    )
+
+    assert first == second
+    assert first in all_four_document_relabelings(original)
+
+    two_document = topology((retrieval("d0"), mention("d0", "d1")))
+    with pytest.raises(ValueError, match="exactly four"):
+        all_four_document_relabelings(two_document)

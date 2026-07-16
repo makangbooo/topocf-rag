@@ -1,0 +1,85 @@
+{
+  "artifacts": {
+    "phase1_baselines": {
+      "path": "reports/phase1/baselines.json",
+      "sha256": "11730cfdee9b0626feb8597092188f95dba03e87fcf2f9651f118c6084b58844"
+    },
+    "rule_leakage": {
+      "path": "reports/certificate_v1/rule_leakage.json",
+      "sha256": "338e82a73a74852eb0d7be85b7ec03fbfe894a809217bd31b9687f1df40bbf8f"
+    },
+    "synthetic_dev_manifest": {
+      "path": "data/phase1/hotpot_dev_phase1_pairs.json",
+      "sha256": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35"
+    },
+    "synthetic_train_manifest": {
+      "path": "data/phase1/hotpot_train_phase1_pairs.json",
+      "sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+    }
+  },
+  "claim": "question-conditioned document-node binding and evidence repair under matched typed topology",
+  "forbidden_hidden_metadata_rules": [
+    "observed_edge_fraction",
+    "observed_title_mention_fraction",
+    "root_reachable_fraction_observed_edges",
+    "composable_two_hop_fraction_observed_edges"
+  ],
+  "method_name": "TopoCF-Bind-Repair-v1",
+  "model_visible_permutation_invariant_rules": [
+    "canonical_topology_lookup",
+    "degree_profile_lookup",
+    "root_reachable_fraction_all_edges",
+    "composable_two_hop_fraction_all_edges"
+  ],
+  "permutation_protocol": {
+    "dev_and_test": "average the candidate score over all 24 document-alias permutations before ranking",
+    "train": "sample one deterministic epoch-dependent S4 permutation per matched pair and apply it identically to the positive and negative members",
+    "unit_of_invariance": "question, immutable document texts, and typed edges are relabeled together",
+    "why": "prevents sequence position or neutral alias from becoming a label shortcut"
+  },
+  "schema_version": 1,
+  "selectors": {
+    "confirmatory": {
+      "stratum": "all_observed_rewire",
+      "variant": "t3_all_observed"
+    },
+    "development": {
+      "stratum": "synthetic_common",
+      "variant": "t3"
+    },
+    "diagnostic_only": [
+      {
+        "stratum": "synthetic_common",
+        "variant": "t1"
+      },
+      {
+        "stratum": "synthetic_common",
+        "variant": "t2"
+      },
+      {
+        "stratum": "t2_all_observed",
+        "variant": "t2"
+      },
+      {
+        "stratum": "synthetic_common",
+        "variant": "fork"
+      },
+      {
+        "stratum": "synthetic_common",
+        "variant": "double_collider"
+      }
+    ]
+  },
+  "thresholds": {
+    "max_visible_structural_rule_accuracy": 0.55,
+    "minimum_confirmatory_dev_questions": 50,
+    "minimum_development_dev_questions": 50,
+    "minimum_development_train_questions": 100
+  },
+  "training_objective": {
+    "counterfactual_ranking": "paired margin loss: score(question, positive binding) > score(question, target-swapped binding)",
+    "forbidden_training_examples": "T1, T2, fork, double-collider, natural retrieval errors, dev, and all-observed confirmatory pairs",
+    "structured_repair": "predict the two mention-edge endpoints that restore the positive binding from the counterfactual candidate",
+    "total": "ranking_loss + lambda_repair * repair_loss; lambda selected on train-only inner validation"
+  }
+}
