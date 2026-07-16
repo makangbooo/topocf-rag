@@ -198,9 +198,39 @@ Passing Stage G0 authorizes only review of aggregate counts and deterministic
 materialization of an all-eligible test ID manifest. Test scoring remains
 paused until those counts are reviewed and the manifest hash is frozen.
 
+Stage G0 did not pass. The official answerable-test file contains only `id`,
+`question`, and `paragraphs`; it has no answerability flag, decomposition, or
+paragraph support labels. Consequently, complete-evidence retrieval cannot be
+evaluated and the official test file must never be scored under this protocol.
+The failed audit is retained as a frozen scientific result rather than
+reinterpreted or rerun.
+
+## Stage G1: unused official-train holdout readiness
+
+The Stage C train manifest used only 1,800 deterministically selected records
+from a larger structurally eligible official-train pool. Records outside that
+manifest have never been embedded, scored, evaluated, or used for graph
+selection. Stage G1 audits this labeled remainder as a transparent
+within-dataset replication holdout.
+
+Before any remainder scoring, the audit binds the exact Stage C report and the
+failed Stage G0 report, reconstructs the Stage C candidate pool, removes every
+selected train ID, verifies no overlap with selected dev, and requires at least
+100 untouched records in each of the nine cells. The pool rule is all remaining
+eligible records in official source order; no sampling or balancing is allowed.
+The Stage G0 hypotheses are carried forward unchanged.
+
+```bash
+python scripts/audit_musique_unused_holdout.py
+```
+
+Passing Stage G1 authorizes manifest materialization only. This is explicitly
+a post-primary untouched within-dataset replication, not an official test-set
+result, independent dataset result, or preregistered external validation.
+
 ## Planned later stages
 
-After Stage G0 is reviewed, the all-eligible test manifest and scoring protocol
-are frozen before the single final test run. Gold labels remain restricted to
-aggregate evaluation and frozen strata; they never enter scores, graph edges,
-propagation, or tie breaking.
+After Stage G1 is reviewed, the all-eligible remainder manifest and scoring
+protocol are frozen before the single replication run. Gold labels remain
+restricted to aggregate evaluation and frozen strata; they never enter scores,
+graph edges, propagation, or tie breaking.
