@@ -169,8 +169,38 @@ pools. Because the primary method is undirected and subgroup effects are
 heterogeneous, directed-reasoning and uniform-improvement claims remain
 forbidden.
 
+## Stage G0: untouched answerable-test readiness audit
+
+Stage F passed all three paired-bootstrap controls. Before any test retrieval
+score is computed, Stage G0 binds the exact Stage F report and the official
+answerable-test source hash. It streams the test file to audit schema,
+duplicate-title policies, nine-cell coverage, and overlap with the frozen
+train/dev manifests. It performs no sampling, embedding, retrieval evaluation,
+or configuration selection.
+
+The following test hypotheses are frozen before the audit output is inspected:
+
+1. the train-selected undirected graph has a positive nine-cell paired-
+   bootstrap 95% lower bound against dense;
+2. it has a positive lower bound against the same-config degree prior; and
+3. outgoing propagation exceeds incoming propagation by at least `0.02` in
+   macro mean complete-evidence rate and has a positive paired-bootstrap lower
+   bound.
+
+Outgoing versus undirected is descriptive only and can never select the test
+method. Subgroup estimates remain non-confirmatory.
+
+```bash
+python scripts/audit_musique_test_readiness.py
+```
+
+Passing Stage G0 authorizes only review of aggregate counts and deterministic
+materialization of an all-eligible test ID manifest. Test scoring remains
+paused until those counts are reviewed and the manifest hash is frozen.
+
 ## Planned later stages
 
-After Stage F is reviewed, the next experiment is chosen from the robustness
-outcome. Gold labels remain restricted to aggregate evaluation and frozen
-strata; they never enter scores, graph edges, propagation, or tie breaking.
+After Stage G0 is reviewed, the all-eligible test manifest and scoring protocol
+are frozen before the single final test run. Gold labels remain restricted to
+aggregate evaluation and frozen strata; they never enter scores, graph edges,
+propagation, or tie breaking.

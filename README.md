@@ -172,4 +172,5 @@ robustness analysis with:
 
 ```bash
 python scripts/validate_musique_graph_retrieval.py --no-fail-on-gate
+python scripts/audit_musique_test_readiness.py
 ```
