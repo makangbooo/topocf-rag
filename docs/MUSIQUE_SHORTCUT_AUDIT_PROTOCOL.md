@@ -228,9 +228,19 @@ Passing Stage G1 authorizes manifest materialization only. This is explicitly
 a post-primary untouched within-dataset replication, not an official test-set
 result, independent dataset result, or preregistered external validation.
 
+Stage G1 did not pass. After removing the 1,800 selected train records, the
+untouched eligible remainder contained 18,117 records, but the frozen
+`4-hop + distractor` cell contained only 24. The preregistered minimum was 100
+per cell. That minimum must not be reduced after inspecting the audit, and no
+remainder embedding or retrieval score may be computed. The failed report is
+retained as a hash-bound stopping result.
+
+The next admissible check is the untouched official 2Wiki test readiness
+audit described in `docs/2WIKI_ADAPTER_PROTOCOL.md`. It carries the MuSiQue
+hypotheses forward without using 2Wiki test labels for method selection.
+
 ## Planned later stages
 
-After Stage G1 is reviewed, the all-eligible remainder manifest and scoring
-protocol are frozen before the single replication run. Gold labels remain
-restricted to aggregate evaluation and frozen strata; they never enter scores,
-graph edges, propagation, or tie breaking.
+No MuSiQue test or unused-remainder scoring stage is currently authorized.
+Gold labels remain restricted to aggregate evaluation and frozen strata; they
+never enter scores, graph edges, propagation, or tie breaking.

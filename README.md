@@ -174,4 +174,12 @@ robustness analysis with:
 python scripts/validate_musique_graph_retrieval.py --no-fail-on-gate
 python scripts/audit_musique_test_readiness.py
 python scripts/audit_musique_unused_holdout.py
+python scripts/audit_2wiki_test_readiness.py
 ```
+
+Both MuSiQue holdout readiness gates stopped before scoring: the official test
+lacks support labels, while the unused train remainder has only 24 eligible
+records in its frozen `4-hop + distractor` cell. The final command therefore
+performs an aggregate-only readiness audit of untouched official 2Wiki test
+data. It does not score that test; see
+[`docs/2WIKI_ADAPTER_PROTOCOL.md`](docs/2WIKI_ADAPTER_PROTOCOL.md).

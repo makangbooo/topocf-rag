@@ -134,3 +134,40 @@ the degree control by at least 0.02 without a budget regression larger than
 headroom, degree-only wins, and graph-only wins each average at least 0.02.
 If neither condition holds, the next research stage is a benchmark
 receiving-degree shortcut audit rather than a GraphRAG propagation claim.
+
+## Untouched official-test readiness after MuSiQue holdout failures
+
+The MuSiQue official answerable test lacks gold support labels, and its unused
+official-train remainder failed the frozen minimum of 100 records per
+hop/collision cell. Neither source may be rescored or repaired post hoc. Before
+examining the official 2Wiki test schema, this stage therefore binds the exact
+failed MuSiQue G1 report and freezes a final controlled-pool replication.
+
+The audit streams the official 2Wiki `test.json` and reports only schema,
+eligibility, per-question-type capacity, hashes, and overlap counts. It does
+not create embeddings, run retrieval, sample records, or expose IDs and text.
+It requires the exact official source hash, complete gold-support schema,
+valid frozen eligibility, at least 100 eligible examples in every one of the
+four question types, exact previously used train/dev manifest hashes, and zero
+test overlap with those manifests.
+
+The confirmatory test configuration is the MuSiQue Stage E/F method frozen
+before this audit: one-hop maximum propagation, dense seed, undirected edges,
+and graph weight 0.75. Its primary contrast is against dense retrieval; a
+second contrast uses the same-config degree prior. Both require a positive
+four-type-stratified paired-bootstrap 95% lower bound for macro mean complete-
+evidence-rate delta. The mechanism contrast freezes outgoing minus incoming,
+requiring mean delta at least 0.02 and a positive bootstrap lower bound.
+Outgoing versus undirected remains descriptive. The older Hotpot RRF transfer
+is secondary and non-confirmatory.
+
+```bash
+python scripts/audit_2wiki_test_readiness.py
+```
+
+Passing this audit authorizes only deterministic all-eligible manifest
+materialization in official source order. Test scoring remains paused until
+the aggregate counts and resulting manifest hash are separately reviewed.
+Because 2Wiki train/dev results were already observed, any later test result is
+an untouched official-test replication, not a fully dataset-independent result
+and not full-corpus GraphRAG.
