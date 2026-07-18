@@ -1,0 +1,66 @@
+{
+  "artifacts": {
+    "pair_generator": {
+      "path": "src/topocf_rag/pairs.py",
+      "sha256": "7cac8db61fa168e39ffb6cedbb47773d92b266e0e9bf8db621b2402374b84f31"
+    },
+    "population_audit_config": {
+      "path": "configs/certificate_v1/topocf_all_observed_v2.json",
+      "sha256": "188f491f6e6eb1eedef857ad847a787a812157d691b7329b64729e8f1c57fe1c"
+    },
+    "split_module": {
+      "path": "src/topocf_rag/all_observed_split.py",
+      "sha256": "95036445c9ebbe6ab12ce9d9d8053df142f1c380bd07a13084373d955133b4d3"
+    },
+    "split_script": {
+      "path": "scripts/prepare_all_observed_splits.py",
+      "sha256": "c24d37c1fd4a215348facce31691d238f0b989143a46123a43574ab8c2691145"
+    }
+  },
+  "candidate": {
+    "name": "TopoCF-All-Observed-v2",
+    "stratum": "all_observed_rewire",
+    "variant": "t3_all_observed"
+  },
+  "inputs": {
+    "population_audit": {
+      "path": "reports/phase1/all_observed_population_audit.json",
+      "sha256": "953b0048b4a9ca56622656caef5f96f9e2a05f2880e3a1844cb8a1768a999a74"
+    },
+    "sources": {
+      "dev_distractor": {
+        "path": "/file_system/datasets/hotpotqa/hotpot_dev_distractor_v1.json",
+        "sha256": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea"
+      },
+      "train": {
+        "path": "/file_system/datasets/hotpotqa/hotpot_train_v1.1.json",
+        "sha256": "26650cf50234ef5fb2e664ed70bbecdfd87815e6bffc257e068efea5cf7cd316"
+      }
+    }
+  },
+  "outputs": {
+    "dev_manifest": "data/splits/topocf_all_observed_dev_v2.json",
+    "report": "reports/phase1/all_observed_split_design.json",
+    "train_manifest": "data/splits/topocf_all_observed_train_inner_v2.json"
+  },
+  "post_split_rules": {
+    "official_dev_role": "one-shot final evaluation only",
+    "pair_materialization_authorized_after_split": true,
+    "training_authorized": false,
+    "training_prerequisites": [
+      "materialize hash-bound all-observed pairs",
+      "verify positive and negative text payload identity",
+      "run content-free and independent-edge baselines",
+      "freeze a method-development gate before fitting"
+    ]
+  },
+  "schema_version": 1,
+  "train_inner_split": {
+    "allocation": "Hamilton proportional allocation across joint strata",
+    "fit_question_count": 1829,
+    "rank": "ascending SHA256(seed NUL level NUL pair-count bucket NUL question_id), then ID",
+    "seed": 20260719,
+    "stratification": "HotpotQA level x pair-count bucket: 1, 2, 3-4, 5+",
+    "validation_question_count": 457
+  }
+}

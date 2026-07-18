@@ -185,7 +185,12 @@ decision is `STOP_CURRENT_METHOD`, so its global binding model must not be
 trained. The replacement feasibility audit requires every local edge to be
 observed and grounded; see
 [`docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`](docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md)
-and run `scripts/audit_all_observed_population.py --no-fail-on-gate`.
+and run `scripts/audit_all_observed_population.py --no-fail-on-gate`. The
+full-population gate passed with 2,286 train questions/5,682 pairs and 162
+dev questions/374 pairs. `scripts/prepare_all_observed_splits.py` is therefore
+authorized to freeze the 1,829/457 question-disjoint train fit/validation
+roles and reserve all 162 dev questions for one-shot evaluation. Training is
+still blocked pending materialization and shortcut baselines.
 
 ## Graph-aware retrieval kill test
 

@@ -68,3 +68,31 @@ python scripts/audit_all_observed_population.py --no-fail-on-gate
 
 The frozen inputs, source hashes, thresholds, and post-audit rules are in
 `configs/certificate_v1/topocf_all_observed_v2.json`.
+
+## Frozen census result and split design
+
+The hash-bound census passed on 2026-07-19. Official train contains 2,286
+eligible questions and 5,682 pairs; official dev-distractor contains 162
+eligible questions and 374 pairs. All candidate edges are observed. The public
+aggregate report is `reports/phase1/all_observed_population_audit.json` with
+SHA256 `953b0048b4a9ca56622656caef5f96f9e2a05f2880e3a1844cb8a1768a999a74`.
+
+The authorized split design partitions every eligible official-train question
+into 1,829 fit questions and 457 inner-validation questions. Allocation is
+Hamilton proportional allocation over the joint stratum
+`HotpotQA level x pair-count bucket (1, 2, 3-4, 5+)`, followed by ascending
+SHA256 rank with seed `20260719`. The unit is always the question ID, so no
+question's pairs can cross roles. Every one of the 162 eligible official-dev
+questions is reserved for one-shot evaluation and cannot select a model,
+checkpoint, threshold, or prompt.
+
+Materialize the ID-only private manifests and aggregate public report with:
+
+```bash
+python scripts/prepare_all_observed_splits.py
+```
+
+The split inputs, code hashes, output paths, and post-split rules are frozen in
+`configs/certificate_v1/topocf_all_observed_split_v2.json`. A successful split
+does not authorize training. The next required stage is hash-bound pair
+materialization followed by content-free and independent-edge shortcut tests.

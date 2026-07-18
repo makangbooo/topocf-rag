@@ -42,10 +42,14 @@ score averaging for validation are mandatory.
 That bounded `synthetic_common/t3` method route is now stopped. The frozen
 independent-edge baseline reached three-seed mean pairwise accuracy `0.999145`
 on official dev, triggering `STOP_CURRENT_METHOD`. Do not train a Sinkhorn or
-global binding model for that task. The only authorized successor is the
-aggregate-only full-population audit in
-`docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`; passing it authorizes split design,
-not verifier training.
+global binding model for that task. The aggregate-only full-population audit in
+`docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md` passed with 2,286 train and 162 dev
+questions. The currently authorized action is the hash-bound,
+question-disjoint split materialization in
+`scripts/prepare_all_observed_splits.py`: 1,829 train-fit, 457 train-validation,
+and all 162 official-dev questions reserved for one-shot evaluation. Passing
+the split checks authorizes pair materialization and shortcut baselines, not
+verifier training.
 
 ## Environment and paths
 

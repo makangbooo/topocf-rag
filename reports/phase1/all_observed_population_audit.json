@@ -1,0 +1,147 @@
+{
+  "artifacts": {
+    "config_path": "/file_system/mkb524/topocf-rag/configs/certificate_v1/topocf_all_observed_v2.json",
+    "config_sha256": "188f491f6e6eb1eedef857ad847a787a812157d691b7329b64729e8f1c57fe1c",
+    "source_sha256": {
+      "dev_distractor": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea",
+      "train": "26650cf50234ef5fb2e664ed70bbecdfd87815e6bffc257e068efea5cf7cd316"
+    }
+  },
+  "content_contract": "aggregate counts, histograms, runtime, and hashes only; no question IDs, questions, answers, contexts, titles, or sentences",
+  "gate": {
+    "checks": {
+      "all_candidate_edges_observed": {
+        "passed": true
+      },
+      "dev_question_count": {
+        "minimum": 100,
+        "passed": true,
+        "value": 162
+      },
+      "train_question_count": {
+        "minimum": 500,
+        "passed": true,
+        "value": 2286
+      }
+    },
+    "passed": true,
+    "status": "authorize_split_design_only"
+  },
+  "protocol": {
+    "candidate": "all_observed_rewire/t3_all_observed",
+    "context_pool": "all documents supplied in each official HotpotQA distractor-format record; this is not a full-corpus retrieval claim",
+    "manual_annotation_used": false,
+    "question_filter": "type == bridge",
+    "retrieval_model_used": false,
+    "source_records_streamed": true
+  },
+  "runtime": {
+    "elapsed_seconds": 437.24194512097165
+  },
+  "schema_version": 1,
+  "splits": {
+    "dev_distractor": {
+      "all_observed_pair_count": 374,
+      "all_observed_pair_count_per_bridge_question_histogram": {
+        "0": 5753,
+        "1": 80,
+        "10": 2,
+        "12": 1,
+        "2": 34,
+        "3": 18,
+        "4": 11,
+        "5": 6,
+        "6": 4,
+        "7": 6
+      },
+      "all_observed_pairs_per_eligible_question": {
+        "maximum": 12,
+        "mean": 2.308641975308642,
+        "median": 2.0,
+        "minimum": 1
+      },
+      "all_observed_question_count": 162,
+      "all_observed_question_rate": 0.027374112875971614,
+      "all_observed_question_rate_among_graph_eligible": 0.02738799661876585,
+      "bridge_question_count": 5918,
+      "context_length_histogram": {
+        "10": 5896,
+        "2": 8,
+        "3": 2,
+        "4": 3,
+        "5": 2,
+        "6": 3,
+        "9": 1
+      },
+      "graph_eligible_bridge_question_count": 5915,
+      "graph_ineligible_bridge_question_count": 3,
+      "graph_ineligible_reason_histogram": {
+        "duplicate_normalized_context_titles": 2,
+        "supporting_fact_sentence_index_out_of_range": 1
+      },
+      "integrity": {
+        "all_bridge_questions_accounted_for": true,
+        "all_candidate_edges_observed": true,
+        "negative_nonobserved_edge_count": 0,
+        "positive_nonobserved_edge_count": 0
+      },
+      "record_count": 7405
+    },
+    "train": {
+      "all_observed_pair_count": 5682,
+      "all_observed_pair_count_per_bridge_question_histogram": {
+        "0": 70668,
+        "1": 1043,
+        "10": 5,
+        "11": 7,
+        "12": 8,
+        "13": 1,
+        "14": 2,
+        "16": 1,
+        "2": 479,
+        "3": 262,
+        "4": 157,
+        "5": 106,
+        "6": 89,
+        "7": 98,
+        "8": 15,
+        "9": 13
+      },
+      "all_observed_pairs_per_eligible_question": {
+        "maximum": 16,
+        "mean": 2.4855643044619424,
+        "median": 2.0,
+        "minimum": 1
+      },
+      "all_observed_question_count": 2286,
+      "all_observed_question_rate": 0.031318929731062733,
+      "all_observed_question_rate_among_graph_eligible": 0.031334813718233406,
+      "bridge_question_count": 72991,
+      "context_length_histogram": {
+        "10": 72726,
+        "2": 70,
+        "3": 35,
+        "4": 21,
+        "5": 26,
+        "6": 22,
+        "7": 21,
+        "8": 17,
+        "9": 16
+      },
+      "graph_eligible_bridge_question_count": 72954,
+      "graph_ineligible_bridge_question_count": 37,
+      "graph_ineligible_reason_histogram": {
+        "duplicate_normalized_context_titles": 17,
+        "supporting_fact_sentence_index_out_of_range": 20
+      },
+      "integrity": {
+        "all_bridge_questions_accounted_for": true,
+        "all_candidate_edges_observed": true,
+        "negative_nonobserved_edge_count": 0,
+        "positive_nonobserved_edge_count": 0
+      },
+      "record_count": 90447
+    }
+  },
+  "task": "topocf_all_observed_full_population_audit"
+}
