@@ -11,6 +11,7 @@ from topocf_rag.method_data import (
     MethodDataInvariantError,
     build_evaluation_examples,
     build_inner_split_manifest,
+    build_official_dev_evaluation_examples,
     build_training_examples,
     inner_role_ids,
     load_inner_split_manifest,
@@ -212,6 +213,19 @@ def test_exact_evaluation_orbit_is_synchronized_for_both_members() -> None:
             "[documents]", 1
         )[1]
         assert target != corrupted
+
+
+def test_official_dev_evaluation_uses_all_primary_pairs_without_ids() -> None:
+    prepared = _prepared()
+    prepared.official_split = "dev_distractor"
+    examples = build_official_dev_evaluation_examples(prepared)
+    assert len(examples) == 1
+    assert len(examples[0].positive_orbit) == 24
+    assert len(examples[0].negative_orbit) == 24
+
+    prepared.official_split = "train"
+    with pytest.raises(MethodDataInvariantError, match="dev_distractor"):
+        build_official_dev_evaluation_examples(prepared)
 
 
 def test_training_data_rejects_split_and_missing_ids() -> None:

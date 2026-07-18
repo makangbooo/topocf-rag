@@ -179,6 +179,12 @@ The initial learning-rate selection is frozen in
 `--replicate-selected`, which locks both learning rate and epoch instead of
 reselecting on the same inner-validation set.
 
+All three independent-edge seeds reached train-only validation pairwise
+accuracy `1.0`, so global binding-model training is paused. The next and only
+authorized method action is the hash-locked, inference-only official-dev check
+implemented by `scripts/evaluate_method_baseline_dev.py`; the decision gate is
+frozen in the same configuration before dev scoring.
+
 ## Graph-aware retrieval kill test
 
 The Phase 0 title graph was originally constructed after dense retrieval.  A

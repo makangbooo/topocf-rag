@@ -18,6 +18,7 @@ from topocf_rag.method_baselines import (
     protocol_sha256,
     render_local_edge,
     reranker_token_ids,
+    resolve_frozen_baseline_checkpoint,
     resolve_replication_epoch,
 )
 from topocf_rag.method_data import (
@@ -243,6 +244,14 @@ def test_baseline_config_freezes_prompt_and_never_uses_official_dev() -> None:
         "flat_cross_encoder",
         "independent_edge",
     }
+    assert config["official_dev_evaluation"]["mandatory_baseline"] == (
+        "independent_edge"
+    )
+    assert config["official_dev_evaluation"]["mandatory_seeds"] == [
+        20260718,
+        20260719,
+        20260720,
+    ]
     for artifact in config["artifacts"].values():
         path = ROOT / artifact["path"]
         assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
@@ -325,3 +334,30 @@ def test_selection_report_is_aggregate_only_and_matches_frozen_choices() -> None
     ] == 4
     assert report["interpretation"]["candidate_method_stop_signal"] is True
     assert report["interpretation"]["formal_method_claim_killed"] is False
+
+
+def test_official_dev_checkpoint_resolution_is_hash_and_seed_locked() -> None:
+    config = json.loads(BASELINE_CONFIG.read_text(encoding="utf-8"))
+    root = Path("/private/checkpoints")
+    resolved = resolve_frozen_baseline_checkpoint(
+        config,
+        baseline="independent_edge",
+        seed=20260720,
+        run_root=root,
+    )
+    assert resolved.learning_rate == 0.0002
+    assert resolved.epoch == 4
+    assert resolved.path == (
+        root
+        / "independent_edge/lr-2e-04/20260720/checkpoint-epoch-4"
+    )
+    assert resolved.sha256 == (
+        "dfb0d37c5fa8d92b12c0521b0cde21c811583d5be58bdec27c833b356f1371aa"
+    )
+    with pytest.raises(MethodBaselineInvariantError, match="no hash-frozen"):
+        resolve_frozen_baseline_checkpoint(
+            config,
+            baseline="independent_edge",
+            seed=7,
+            run_root=root,
+        )

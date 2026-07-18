@@ -133,6 +133,53 @@ done
 During replication, inner-validation metrics are still reported for stability,
 but they cannot select a different epoch. Only the frozen final epoch is saved.
 
+Both fixed independent-edge replications reproduced pairwise accuracy `1.0`:
+
+| Seed | Frozen epoch | Pairwise accuracy | AUROC | Mean margin |
+|---:|---:|---:|---:|---:|
+| 20260718 | 4 | 1.0000 | 0.9985 | 2.6112 |
+| 20260719 | 4 | 1.0000 | 0.9994 | 2.0960 |
+| 20260720 | 4 | 1.0000 | 1.0000 | 2.2165 |
+
+The corresponding flat scores were `0.6962`, `0.5145`, and `0.5934`. Thus the
+ceiling is specific to decomposed local-edge grounding rather than a universal
+property of the reranker. The aggregate-only hashes and metrics are frozen in
+`reports/phase1/text_baseline_selection.json`. This confirms the train-only
+stop signal and pauses global binding-model training.
+
+### One-shot official-dev confirmation
+
+Before redesigning T3, all three independent-edge adapters receive exactly one
+external evaluation on the untouched 65-question/150-pair official-dev T3
+stratum. `scripts/evaluate_method_baseline_dev.py` derives the checkpoint path
+from the frozen baseline, learning rate, seed, and epoch; it accepts no free
+checkpoint path and verifies the adapter tree hash before loading official dev.
+It performs no training, ensembling, thresholding, or checkpoint selection.
+
+The decision rule is frozen before evaluation:
+
+- stop the current method if every seed reaches at least `0.90` question-macro
+  pairwise accuracy and their mean is at least `0.95`;
+- treat a three-seed mean below `0.80` as an external contradiction;
+- treat every other outcome as ambiguous and diagnose it without training the
+  global binding model.
+
+Run all three seeds consecutively; do not inspect one seed and conditionally
+omit the others:
+
+```bash
+for seed in 20260718 20260719 20260720; do
+  CUDA_VISIBLE_DEVICES=0 python scripts/evaluate_method_baseline_dev.py \
+    --baseline independent_edge \
+    --seed "$seed"
+done
+```
+
+Each output path is write-once below
+`/home/mkb524/topocf-rag-runs/text-baseline-dev-v1`. Existing output causes a
+hard failure. Flat official-dev scoring is deferred because it is unnecessary
+for the local-decomposability stop decision.
+
 Checkpoints and reports are written below
 `/home/mkb524/topocf-rag-runs/text-baselines-v1` with mode-restricted parent
 directories. They must not be committed. Reports contain aggregate metrics,
@@ -146,10 +193,8 @@ Do not claim a constrained-binding contribution unless the final method beats
 both learned baselines and yields a positive structured-repair result. A win
 only over BM25/bge-m3 is insufficient.
 
-The seed-`20260718` independent-edge ceiling is a candidate stop signal, not
-yet a final conclusion. If the fixed epoch-4 configuration remains at or near
-ceiling for both replication seeds, stop the current synthetic-T3 method claim
-before training a global binding model: the task is empirically solvable from
-independent local grounding and does not demonstrate the need for a one-to-one
-binding constraint. Redesigning the counterfactual so every local edge is
-individually plausible would then be required before method development resumes.
+The three-seed independent-edge ceiling confirms the train-only stop signal.
+Do not train the global binding model while the one-shot official-dev result is
+pending. If the frozen external gate also stops, redesign the counterfactual so
+every local edge is individually plausible and only their global composition
+distinguishes the positive from the negative before method development resumes.

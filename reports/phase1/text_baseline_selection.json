@@ -51,12 +51,67 @@
   },
   "interpretation": {
     "candidate_method_stop_signal": true,
+    "current_global_binding_training_authorized": false,
     "formal_method_claim_killed": false,
-    "reason": "The independent local-edge factorization reached the validation ceiling, so the current T3 task may be locally decomposable rather than requiring a global binding constraint.",
-    "required_next_step": "Replicate each frozen learning-rate and epoch choice with seeds 20260719 and 20260720 before any official-dev evaluation or full constrained-method training."
+    "reason": "The independent local-edge factorization reached pairwise accuracy 1.0 for all three frozen seeds, so the current T3 task is stably locally decomposable on train-only validation and does not yet demonstrate the need for a global binding constraint.",
+    "replication_stop_signal_confirmed": true,
+    "required_next_step": "Run each hash-frozen checkpoint exactly once on untouched official dev. Do not train the constrained global-binding method unless that external confirmation materially contradicts the train-only stop signal."
   },
   "model_fingerprint_sha256": "01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb",
   "schema_version": 1,
+  "replication_runs": {
+    "flat_cross_encoder": {
+      "20260719": {
+        "checkpoint_sha256": "26f675b26ddf14d02cecd4e1c11ac93d5e100faa3c22b1777266b28e5d657112",
+        "mean_question_mean_margin": 0.002619958302331343,
+        "report_sha256": "d906db27239c8053976a0bc6014d0ffecf59aa4ffd6ec0297a9f607a2f4c0d96",
+        "selected_auroc": 0.4723505261479592,
+        "selected_epoch": 1,
+        "selected_pairwise_accuracy": 0.514546130952381
+      },
+      "20260720": {
+        "checkpoint_sha256": "aaf8b086431e8b44c2a8e85f80c426939f7785b75de914fb5f8e470f524ccb78",
+        "mean_question_mean_margin": 0.007027277870783716,
+        "report_sha256": "1a2932e1b9f67893791a03d302ac7dfcea66e615fad28edb11e2e6c5cb7c1d25",
+        "selected_auroc": 0.5697633219954649,
+        "selected_epoch": 1,
+        "selected_pairwise_accuracy": 0.5933779761904762
+      }
+    },
+    "independent_edge": {
+      "20260719": {
+        "checkpoint_sha256": "e97efa6a9eda320f66781bdcb08c9d8001bbcd8a372dc2000e893b8f556dc9ac",
+        "mean_question_mean_margin": 2.095961700923859,
+        "report_sha256": "900c12be8781df46c7b5af1dd83108286d4c31bb7c4ff8ba38cdae130f353adc",
+        "selected_auroc": 0.9993622448979592,
+        "selected_epoch": 4,
+        "selected_pairwise_accuracy": 1.0
+      },
+      "20260720": {
+        "checkpoint_sha256": "dfb0d37c5fa8d92b12c0521b0cde21c811583d5be58bdec27c833b356f1371aa",
+        "mean_question_mean_margin": 2.216517082093254,
+        "report_sha256": "07a4b9e613c42476d27b1d813e597853d04768127d64e416f0978dea993897ee",
+        "selected_auroc": 1.0,
+        "selected_epoch": 4,
+        "selected_pairwise_accuracy": 1.0
+      }
+    }
+  },
+  "replication_summary": {
+    "flat_cross_encoder": {
+      "pairwise_accuracy_maximum": 0.6961681547619049,
+      "pairwise_accuracy_mean": 0.6013640873015874,
+      "pairwise_accuracy_minimum": 0.514546130952381,
+      "seed_count": 3
+    },
+    "independent_edge": {
+      "auroc_mean": 0.9992991337159864,
+      "pairwise_accuracy_maximum": 1.0,
+      "pairwise_accuracy_mean": 1.0,
+      "pairwise_accuracy_minimum": 1.0,
+      "seed_count": 3
+    }
+  },
   "selected_configurations": {
     "flat_cross_encoder": {
       "checkpoint_sha256": "bfaf76baad0ee21d6aaa16c4c81a55419067743e7aebe33dc483d9d3c073ac14",
@@ -84,5 +139,6 @@
     "tertiary": "earlier epoch"
   },
   "source_configuration_sha256": "f70e6e71d90e2ff2f97e5e0a0786c7d3f5f6a7a6ed3b0f8aecec0d273129f9e5",
+  "replication_configuration_sha256": "669a4000f8a17b3056bd4df5f714d95db85b8eeb8b9c7ae3230c0bbda0d7a6f2",
   "task": "topocf_text_baseline_inner_validation_selection"
 }

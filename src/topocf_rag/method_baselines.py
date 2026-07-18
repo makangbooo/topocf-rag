@@ -14,6 +14,7 @@ from dataclasses import asdict, dataclass
 import hashlib
 import json
 import math
+from pathlib import Path
 import random
 import statistics
 from typing import Any, Final, Literal
@@ -87,6 +88,18 @@ class BaselineEvaluationPair:
     qid: str
     positive_orbit: tuple[CandidateInputs, ...]
     negative_orbit: tuple[CandidateInputs, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class FrozenBaselineCheckpoint:
+    """One hash-bound selected adapter used for one-shot dev evaluation."""
+
+    baseline: BaselineName
+    seed: int
+    learning_rate: float
+    epoch: int
+    path: Path
+    sha256: str
 
 
 def _require_baseline(value: str) -> BaselineName:
@@ -180,6 +193,71 @@ def resolve_replication_epoch(
             f"{expected_learning_rate}"
         )
     return epoch
+
+
+def resolve_frozen_baseline_checkpoint(
+    config: Mapping[str, Any],
+    *,
+    baseline: str,
+    seed: int,
+    run_root: str | Path,
+) -> FrozenBaselineCheckpoint:
+    """Resolve only a preregistered seed checkpoint; never accept a free path."""
+
+    resolved_baseline = _require_baseline(baseline)
+    selected = config.get("selected_configurations")
+    if not isinstance(selected, Mapping):
+        raise MethodBaselineInvariantError("selected configurations are not frozen")
+    by_baseline = selected.get("by_baseline")
+    if not isinstance(by_baseline, Mapping):
+        raise MethodBaselineInvariantError("selected baseline map is invalid")
+    baseline_selection = by_baseline.get(resolved_baseline)
+    if not isinstance(baseline_selection, Mapping):
+        raise MethodBaselineInvariantError(
+            f"no selected configuration for {resolved_baseline}"
+        )
+    learning_rate = baseline_selection.get("learning_rate")
+    checkpoints = baseline_selection.get("checkpoints_by_seed")
+    if (
+        not isinstance(learning_rate, (int, float))
+        or isinstance(learning_rate, bool)
+        or not math.isfinite(float(learning_rate))
+        or float(learning_rate) <= 0
+        or not isinstance(checkpoints, Mapping)
+    ):
+        raise MethodBaselineInvariantError("frozen checkpoint map is invalid")
+    checkpoint = checkpoints.get(str(seed))
+    if not isinstance(checkpoint, Mapping):
+        raise MethodBaselineInvariantError(
+            f"seed {seed} has no hash-frozen {resolved_baseline} checkpoint"
+        )
+    epoch = checkpoint.get("epoch")
+    digest = checkpoint.get("sha256")
+    if (
+        not isinstance(epoch, int)
+        or isinstance(epoch, bool)
+        or epoch < 1
+        or not isinstance(digest, str)
+        or len(digest) != 64
+        or any(character not in "0123456789abcdef" for character in digest)
+    ):
+        raise MethodBaselineInvariantError("frozen checkpoint entry is invalid")
+    label = format(float(learning_rate), ".0e")
+    path = (
+        Path(run_root)
+        / resolved_baseline
+        / f"lr-{label}"
+        / str(seed)
+        / f"checkpoint-epoch-{epoch}"
+    )
+    return FrozenBaselineCheckpoint(
+        baseline=resolved_baseline,
+        seed=seed,
+        learning_rate=float(learning_rate),
+        epoch=epoch,
+        path=path,
+        sha256=digest,
+    )
 
 
 def format_reranker_input(

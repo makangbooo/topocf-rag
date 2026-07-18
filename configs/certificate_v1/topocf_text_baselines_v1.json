@@ -8,9 +8,13 @@
       "path": "data/splits/topocf_t3_train_inner_v1.json",
       "sha256": "2d32b948bfa9e0a40c0c62b6b694250f6c14adc9d69640acd56d98f24accc8db"
     },
+    "official_dev_pair_manifest": {
+      "path": "data/phase1/hotpot_dev_phase1_pairs.json",
+      "sha256": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35"
+    },
     "selection_report": {
       "path": "reports/phase1/text_baseline_selection.json",
-      "sha256": "a9ae529027ef9bf41967809d4c1254ede65a726675a50e8ede7030ddf4ed8e3e"
+      "sha256": "ebc5256ff9603ac35676cad9579bcd6a68d3216cbd85903bd40256a1ce94dea2"
     },
     "train_pair_manifest": {
       "path": "data/phase1/hotpot_train_phase1_pairs.json",
@@ -77,10 +81,47 @@
   },
   "reranker_input_protocol_sha256": "75fefad916c97b45c5f5573e00a25c746586352cae4b1432f6d68d32e8ee0fd5",
   "schema_version": 1,
+  "official_dev_evaluation": {
+    "checkpoint_policy": "all three mandatory independent-edge checkpoints are scored exactly once; no ensembling, tuning, thresholding, or checkpoint replacement",
+    "decision_gate": {
+      "ambiguous": "all other outcomes require diagnosis without training the global-binding method",
+      "external_contradiction": "three-seed mean question-macro pairwise accuracy below 0.80",
+      "stop_current_method": "every seed has question-macro pairwise accuracy at least 0.90 and the three-seed mean is at least 0.95"
+    },
+    "expected_pair_count": 150,
+    "expected_question_count": 65,
+    "mandatory_baseline": "independent_edge",
+    "mandatory_seeds": [
+      20260718,
+      20260719,
+      20260720
+    ],
+    "official_split": "dev_distractor",
+    "selector": {
+      "stratum": "synthetic_common",
+      "variant": "t3"
+    },
+    "source_path": "/file_system/datasets/hotpotqa/hotpot_dev_distractor_v1.json",
+    "source_sha256": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea"
+  },
   "selected_configurations": {
     "by_baseline": {
       "flat_cross_encoder": {
         "checkpoint_sha256": "bfaf76baad0ee21d6aaa16c4c81a55419067743e7aebe33dc483d9d3c073ac14",
+        "checkpoints_by_seed": {
+          "20260718": {
+            "epoch": 1,
+            "sha256": "bfaf76baad0ee21d6aaa16c4c81a55419067743e7aebe33dc483d9d3c073ac14"
+          },
+          "20260719": {
+            "epoch": 1,
+            "sha256": "26f675b26ddf14d02cecd4e1c11ac93d5e100faa3c22b1777266b28e5d657112"
+          },
+          "20260720": {
+            "epoch": 1,
+            "sha256": "aaf8b086431e8b44c2a8e85f80c426939f7785b75de914fb5f8e470f524ccb78"
+          }
+        },
         "learning_rate": 0.0001,
         "selected_epoch": 1,
         "selected_report_sha256": "49b3d50d237eb21aad4856c3b7d7303fa052e1c9d99267747b477f9cec64cf71",
@@ -88,6 +129,20 @@
       },
       "independent_edge": {
         "checkpoint_sha256": "0b53e502abeb35dab6c2d4cc1bf97319d424c7485485af10112ac5f8d285de9d",
+        "checkpoints_by_seed": {
+          "20260718": {
+            "epoch": 4,
+            "sha256": "0b53e502abeb35dab6c2d4cc1bf97319d424c7485485af10112ac5f8d285de9d"
+          },
+          "20260719": {
+            "epoch": 4,
+            "sha256": "e97efa6a9eda320f66781bdcb08c9d8001bbcd8a372dc2000e893b8f556dc9ac"
+          },
+          "20260720": {
+            "epoch": 4,
+            "sha256": "dfb0d37c5fa8d92b12c0521b0cde21c811583d5be58bdec27c833b356f1371aa"
+          }
+        },
         "learning_rate": 0.0002,
         "selected_epoch": 4,
         "selected_report_sha256": "b5a710cd01392b839285e657d7b54b3f29a1aa1561a8e4781ee3eef6d827b5c2",

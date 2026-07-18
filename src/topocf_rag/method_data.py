@@ -513,9 +513,17 @@ def build_evaluation_examples(
 ) -> tuple[CounterfactualEvaluationExample, ...]:
     """Build the synchronized exact S4 orbit for inner-validation IDs only."""
 
-    examples: list[CounterfactualEvaluationExample] = []
     validation_ids = inner_role_ids(inner_split_manifest, "validation")
-    for pair in _selected_prepared_pairs(prepared, validation_ids):
+    return _build_exact_evaluation_orbits(
+        _selected_prepared_pairs(prepared, validation_ids)
+    )
+
+
+def _build_exact_evaluation_orbits(
+    pairs: Sequence[Any],
+) -> tuple[CounterfactualEvaluationExample, ...]:
+    examples: list[CounterfactualEvaluationExample] = []
+    for pair in pairs:
         positives = all_four_document_relabelings(pair.positive.topology)
         negatives = all_four_document_relabelings(pair.negative.topology)
         if len(positives) != 24 or len(negatives) != 24:
@@ -547,6 +555,33 @@ def build_evaluation_examples(
             )
         )
     return tuple(examples)
+
+
+def build_official_dev_evaluation_examples(
+    prepared: Any,
+) -> tuple[CounterfactualEvaluationExample, ...]:
+    """Build exact S4 orbits for every primary pair on untouched official dev."""
+
+    if getattr(prepared, "official_split", None) != "dev_distractor":
+        raise MethodDataInvariantError(
+            "official-dev evaluation requires the dev_distractor split"
+        )
+    selected = tuple(
+        sorted(
+            (
+                pair
+                for pair in getattr(prepared, "pairs", ())
+                if pair.stratum == PRIMARY_STRATUM
+                and pair.variant == PRIMARY_VARIANT
+            ),
+            key=lambda pair: pair.pair_id,
+        )
+    )
+    if not selected:
+        raise MethodDataInvariantError(
+            "official dev contains no primary synthetic T3 pairs"
+        )
+    return _build_exact_evaluation_orbits(selected)
 
 
 def source_pair_manifest_sha256(path: str | Path) -> str:
