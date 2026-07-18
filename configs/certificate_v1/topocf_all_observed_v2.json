@@ -2,11 +2,11 @@
   "artifacts": {
     "audit_module": {
       "path": "src/topocf_rag/all_observed_population.py",
-      "sha256": "466f91e784b50ed77d300a38559fd406a988727e30794c52760c18e878ba404e"
+      "sha256": "7664a7ed2b83f06b9423b15c4b235df573ba265b87a82d9ef38b56a89fd9532f"
     },
     "audit_script": {
       "path": "scripts/audit_all_observed_population.py",
-      "sha256": "f172cbf9d15673f735513e3733ea1bc226101ad309807d28f013287a4db7be1d"
+      "sha256": "1b99b64909606c1150c03400f499f607bdd884e55d93b5e67472b080eaed9a90"
     },
     "existing_dev_manifest": {
       "path": "data/phase1/hotpot_dev_phase1_pairs.json",

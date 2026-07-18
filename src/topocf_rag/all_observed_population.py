@@ -7,12 +7,32 @@ from collections.abc import Iterable, Mapping
 import statistics
 from typing import Any
 
-from .graph import validate_hotpot_example
+from .graph import HotpotInvariantError, validate_hotpot_example
+from .hotpot import validate_hotpot_record
 from .pairs import generate_question_pairs
 
 
 class AllObservedPopulationInvariantError(ValueError):
     """Raised when a population audit violates its content-safe contract."""
+
+
+def _graph_ineligibility_reason(error: HotpotInvariantError) -> str:
+    """Map content-free graph validation failures to stable aggregate labels."""
+
+    message = str(error)
+    if message == "context normalized titles must be unique":
+        return "duplicate_normalized_context_titles"
+    if "references a missing context title" in message:
+        return "supporting_title_missing_from_context"
+    if "sentence_index is out of range" in message:
+        return "supporting_fact_sentence_index_out_of_range"
+    if message == "supporting_facts must not be empty":
+        return "empty_supporting_facts"
+    if message == "context must contain at least one document":
+        return "empty_context"
+    if message == "question must be a non-empty string":
+        return "empty_question"
+    return "other_graph_invariant_failure"
 
 
 def audit_all_observed_population(
@@ -22,6 +42,8 @@ def audit_all_observed_population(
 
     record_count = 0
     bridge_count = 0
+    graph_eligible_count = 0
+    graph_ineligible_reasons: Counter[str] = Counter()
     question_count = 0
     pair_count = 0
     context_lengths: Counter[int] = Counter()
@@ -30,11 +52,21 @@ def audit_all_observed_population(
     negative_nonobserved_edge_count = 0
 
     for record in records:
-        validate_hotpot_example(record)
+        # The source-level contract applies to every official record, while the
+        # graph contract applies only after the frozen bridge filter.  Applying
+        # the latter first incorrectly lets an out-of-scope comparison record
+        # abort the bridge-only census.
+        validate_hotpot_record(record)
         record_count += 1
         if record.get("type") != "bridge":
             continue
         bridge_count += 1
+        try:
+            validate_hotpot_example(record)
+        except HotpotInvariantError as error:
+            graph_ineligible_reasons[_graph_ineligibility_reason(error)] += 1
+            continue
+        graph_eligible_count += 1
         context = record.get("context")
         if not isinstance(context, list) or not context:
             raise AllObservedPopulationInvariantError(
@@ -66,8 +98,13 @@ def audit_all_observed_population(
 
     if record_count < 1:
         raise AllObservedPopulationInvariantError("source contains no records")
-    if sum(pair_counts.values()) != bridge_count:
-        raise RuntimeError("pair-count histogram does not cover bridge questions")
+    graph_ineligible_count = sum(graph_ineligible_reasons.values())
+    if graph_eligible_count + graph_ineligible_count != bridge_count:
+        raise RuntimeError("graph eligibility counts do not cover bridge questions")
+    if sum(pair_counts.values()) != graph_eligible_count:
+        raise RuntimeError(
+            "pair-count histogram does not cover graph-eligible bridge questions"
+        )
     nonzero_counts = [
         count
         for count, frequency in pair_counts.items()
@@ -77,9 +114,19 @@ def audit_all_observed_population(
     return {
         "record_count": record_count,
         "bridge_question_count": bridge_count,
+        "graph_eligible_bridge_question_count": graph_eligible_count,
+        "graph_ineligible_bridge_question_count": graph_ineligible_count,
+        "graph_ineligible_reason_histogram": dict(
+            sorted(graph_ineligible_reasons.items())
+        ),
         "all_observed_question_count": question_count,
         "all_observed_question_rate": (
             question_count / bridge_count if bridge_count else None
+        ),
+        "all_observed_question_rate_among_graph_eligible": (
+            question_count / graph_eligible_count
+            if graph_eligible_count
+            else None
         ),
         "all_observed_pair_count": pair_count,
         "all_observed_pairs_per_eligible_question": {
@@ -101,6 +148,9 @@ def audit_all_observed_population(
             "all_candidate_edges_observed": (
                 positive_nonobserved_edge_count == 0
                 and negative_nonobserved_edge_count == 0
+            ),
+            "all_bridge_questions_accounted_for": (
+                graph_eligible_count + graph_ineligible_count == bridge_count
             ),
         },
     }

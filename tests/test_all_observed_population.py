@@ -42,6 +42,9 @@ def test_population_audit_counts_only_all_observed_rewires() -> None:
     )
     assert report["record_count"] == 2
     assert report["bridge_question_count"] == 2
+    assert report["graph_eligible_bridge_question_count"] == 2
+    assert report["graph_ineligible_bridge_question_count"] == 0
+    assert report["graph_ineligible_reason_histogram"] == {}
     assert report["all_observed_question_count"] == 1
     assert report["all_observed_pair_count"] == 1
     assert report["all_observed_question_rate"] == 0.5
@@ -51,9 +54,36 @@ def test_population_audit_counts_only_all_observed_rewires() -> None:
     }
     assert report["integrity"] == {
         "all_candidate_edges_observed": True,
+        "all_bridge_questions_accounted_for": True,
         "negative_nonobserved_edge_count": 0,
         "positive_nonobserved_edge_count": 0,
     }
+
+
+def test_population_audit_filters_before_graph_validation_and_counts_exclusions() -> None:
+    comparison = _example(all_observed=True)
+    comparison["_id"] = "comparison-with-duplicate-title"
+    comparison["type"] = "comparison"
+    comparison["context"][1][0] = "Alpha"  # type: ignore[index]
+
+    bridge = _example(all_observed=True)
+    bridge["_id"] = "bridge-with-duplicate-title"
+    bridge["context"][1][0] = "Alpha"  # type: ignore[index]
+
+    report = audit_all_observed_population((comparison, bridge))
+
+    assert report["record_count"] == 2
+    assert report["bridge_question_count"] == 1
+    assert report["graph_eligible_bridge_question_count"] == 0
+    assert report["graph_ineligible_bridge_question_count"] == 1
+    assert report["graph_ineligible_reason_histogram"] == {
+        "duplicate_normalized_context_titles": 1
+    }
+    assert report["all_observed_question_count"] == 0
+    assert report["all_observed_question_rate"] == 0.0
+    assert report["all_observed_question_rate_among_graph_eligible"] is None
+    assert report["all_observed_pair_count_per_bridge_question_histogram"] == {}
+    assert report["integrity"]["all_bridge_questions_accounted_for"] is True
 
 
 def test_population_gate_is_frozen_to_question_counts_and_edge_integrity() -> None:

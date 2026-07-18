@@ -41,6 +41,14 @@ and dev-distractor records, filters to `type == bridge`, and treats every
 document supplied in the record as a controlled context pool. It does not call
 a retriever and must not be described as full-corpus retrieval.
 
+Source-level schema validation is applied to every record before the bridge
+filter. Graph-level validation is applied only to bridge questions. A bridge
+question whose context cannot satisfy the frozen unique-normalized-title node
+identity is excluded rather than silently merging documents; the exclusion and
+its content-free reason are counted in the public aggregate report. The
+all-observed prevalence keeps all bridge questions as its denominator. This
+handling does not change the frozen eligible-question thresholds.
+
 Only aggregate counts and histograms are written. No IDs, questions, answers,
 titles, contexts, or sentences are persisted. The frozen feasibility gate is:
 

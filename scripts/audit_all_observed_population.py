@@ -124,6 +124,12 @@ def main() -> int:
                     split: {
                         "record_count": summary["record_count"],
                         "bridge_question_count": summary["bridge_question_count"],
+                        "graph_eligible_bridge_question_count": summary[
+                            "graph_eligible_bridge_question_count"
+                        ],
+                        "graph_ineligible_bridge_question_count": summary[
+                            "graph_ineligible_bridge_question_count"
+                        ],
                         "all_observed_question_count": summary[
                             "all_observed_question_count"
                         ],
