@@ -34,6 +34,22 @@ changes. Observation and provenance flags are never model inputs.
 The all-observed HotpotQA stratum is below the frozen minimum of 50 dev
 questions. It cannot support the paper's confirmatory claim by itself.
 
+### Train-only model-selection split
+
+The 161 synthetic-T3 train questions are divided by question ID, never by
+pair. Pair-count buckets `1`, `2`, `3-4`, and `5+` are allocated with the
+Hamilton method, followed by SHA256 ranking with seed `20260718`.
+
+| Inner role | Questions | Pairs | Permutation use |
+|---|---:|---:|---|
+| Fit | 129 | 294 | one shared deterministic S4 permutation per pair and epoch |
+| Inner validation | 32 | 74 | exact 24-permutation score average |
+
+Only fit examples may contribute gradients. Inner validation selects the loss
+weight, learning rate, epoch, and checkpoint. The 65-question synthetic T3
+official dev split is evaluated once after the configuration is frozen. The
+all-observed official-dev stratum is neither a training nor a selection set.
+
 ## Method: permutation-equivariant binding energy
 
 Let the four document nodes be `d0...d3`. A text encoder produces
@@ -121,10 +137,17 @@ model, stop the method claim rather than adding more synthetic generators.
 
 ```bash
 python scripts/audit_method_readiness.py
+python scripts/prepare_method_inner_split.py
 python -m pytest -q tests/test_method_readiness.py tests/test_serialization.py
+python -m pytest -q tests/test_method_data.py
 ```
 
 The frozen configuration is
 `configs/certificate_v1/topocf_bind_repair_v1.json`; the aggregate report is
 `reports/phase1/method_readiness.json`. Both are bound to the exact Phase 1
 manifests, semantic baseline report, and structural leakage report by SHA256.
+The train-only split is `data/splits/topocf_t3_train_inner_v1.json`, and its
+aggregate-only materialization report is
+`reports/phase1/method_inner_split.json`. The model-facing data contract and
+all relevant artifact hashes are frozen in
+`configs/certificate_v1/topocf_data_v1.json`.

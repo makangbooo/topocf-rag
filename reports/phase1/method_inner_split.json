@@ -1,0 +1,87 @@
+{
+  "content_contract": "aggregate counts, protocol, and hashes only; no IDs or dataset text",
+  "fit": {
+    "bucket_question_counts": {
+      "1": 69,
+      "2": 22,
+      "3-4": 21,
+      "5+": 17
+    },
+    "id_sequence_sha256": "50fe47008837fff86c9735f7336eadfec0df56442bbf6b747d7e38e9f5386951",
+    "pair_count": 294,
+    "pair_count_histogram": {
+      "1": 69,
+      "2": 22,
+      "3": 9,
+      "4": 12,
+      "5": 8,
+      "6": 2,
+      "7": 4,
+      "8": 1,
+      "9": 2
+    },
+    "question_count": 129
+  },
+  "inputs": {
+    "pair_manifest_path": "data/phase1/hotpot_train_phase1_pairs.json",
+    "pair_manifest_sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+  },
+  "integrity": {
+    "fit_validation_overlap_count": 0,
+    "pair_group_crossing_count": 0,
+    "population_partitioned_exactly": true
+  },
+  "output": {
+    "path": "data/splits/topocf_t3_train_inner_v1.json",
+    "sha256": "2d32b948bfa9e0a40c0c62b6b694250f6c14adc9d69640acd56d98f24accc8db"
+  },
+  "population": {
+    "bucket_question_counts": {
+      "1": 86,
+      "2": 27,
+      "3-4": 26,
+      "5+": 22
+    },
+    "pair_count": 368,
+    "question_count": 161,
+    "validation_allocation": {
+      "1": 17,
+      "2": 5,
+      "3-4": 5,
+      "5+": 5
+    }
+  },
+  "protocol": {
+    "allocation": "Hamilton proportional allocation across buckets",
+    "confirmatory_pairs_used": false,
+    "official_dev_used": false,
+    "rank": "ascending SHA256(seed NUL bucket NUL question_id), then ID",
+    "seed": 20260718,
+    "stratification": "primary T3 pair-count buckets: 1, 2, 3-4, 5+",
+    "unit": "question_id",
+    "validation_question_count": 32
+  },
+  "schema_version": 1,
+  "task": "topocf_bind_repair_inner_split_materialization",
+  "validation": {
+    "bucket_question_counts": {
+      "1": 17,
+      "2": 5,
+      "3-4": 5,
+      "5+": 5
+    },
+    "id_sequence_sha256": "c04d9b127494024f3ab29640ffc7af3b526c3f039465444965313d732777460f",
+    "pair_count": 74,
+    "pair_count_histogram": {
+      "1": 17,
+      "2": 5,
+      "3": 4,
+      "4": 1,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 1
+    },
+    "question_count": 32
+  }
+}

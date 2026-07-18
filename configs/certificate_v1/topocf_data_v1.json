@@ -1,0 +1,47 @@
+{
+  "artifacts": {
+    "inner_split": {
+      "path": "data/splits/topocf_t3_train_inner_v1.json",
+      "sha256": "2d32b948bfa9e0a40c0c62b6b694250f6c14adc9d69640acd56d98f24accc8db"
+    },
+    "inner_split_report": {
+      "path": "reports/phase1/method_inner_split.json",
+      "sha256": "441210e51e09291278a7e3c068de7267e1621f678331f7146d59752400c2711d"
+    },
+    "method_config": {
+      "path": "configs/certificate_v1/topocf_bind_repair_v1.json",
+      "sha256": "44621be182e7df435e4f9f93812451852a3f470326baaa046757ee1a49239b1b"
+    },
+    "method_readiness": {
+      "path": "reports/phase1/method_readiness.json",
+      "sha256": "4aaefa8c01ed8202fe69a508b42b6c7edd28ea775ae8efd6714131f7f33a43e3"
+    },
+    "train_pair_manifest": {
+      "path": "data/phase1/hotpot_train_phase1_pairs.json",
+      "sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+    }
+  },
+  "data_roles": {
+    "fit": "129 official-train questions and 294 synthetic_common/t3 pairs; gradient updates only",
+    "inner_validation": "32 official-train questions and 74 synthetic_common/t3 pairs; model selection only; exact S4 score averaging",
+    "official_dev": "65 synthetic T3 questions for one-shot bounded development evaluation after configuration freeze",
+    "official_dev_all_observed": "12 all-observed T3 questions; descriptive and underpowered; never used for selection"
+  },
+  "forbidden_inputs": [
+    "edge observed flags",
+    "edge provenance",
+    "generator or stratum names",
+    "pair labels inside serialized topology",
+    "official dev examples during model selection",
+    "all-observed confirmatory pairs during fitting or model selection"
+  ],
+  "method_data_seed": 20260718,
+  "model_input_contract": {
+    "candidate": "evidence-topology-neutral-v1 serialization after synchronized alias relabeling",
+    "question": "provided as a separate encoder input in memory",
+    "repair_target": "four-by-four binary title-mention binding matrix after the same alias relabeling",
+    "training_permutation": "one deterministic epoch-dependent S4 permutation shared by both members of a pair",
+    "validation_permutation": "all 24 S4 permutations scored for each member and averaged before ranking"
+  },
+  "schema_version": 1
+}

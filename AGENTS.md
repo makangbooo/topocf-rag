@@ -24,24 +24,35 @@ two-document path cannot represent a legal T3 two-switch, and T1/T2 share the
 same canonical typed collider signature. Do not describe the current protocol
 as generalization to three unseen topology classes.
 
-The recommended continuation is a fixed four-document, two-path
-`EvidenceTopology` budget for every generator, with the evaluation named
-leave-one-generator-out. Keep all-observed T2, synthetic-edge T1/T3, and
-natural retrieval errors in separate result strata.
+The fixed four-document, two-path `EvidenceTopology` option was selected and
+implemented. A subsequent content-free audit showed that mixed T1/T2/T3
+training is structurally shortcut-solvable. Follow
+`docs/TOPOCF_BIND_REPAIR_PROTOCOL.md`: only degree- and topology-matched T3 is
+the primary method-development task; T1/T2/fork/double-collider are diagnostic
+only. All-observed T3 remains a separate, currently underpowered confirmation
+stratum.
+
+The readiness gate authorizes bounded method development only. Fitting must
+use the frozen question-disjoint train-only inner split in
+`data/splits/topocf_t3_train_inner_v1.json`. Official dev and all-observed pairs
+must not be used for loss-weight, hyperparameter, epoch, or checkpoint
+selection. Synchronized training-time S4 relabeling and exact 24-permutation
+score averaging for validation are mandatory.
 
 ## Environment and paths
 
 - Repository: `~/topocf-rag`
-- Isolated environment: `~/topocf-rag/.venv`
+- Isolated Conda environment:
+  `/home/mkb524/miniconda3/envs/topocf-rag-cert-v1`
 - HotpotQA root: `/file_system/datasets/hotpotqa`
 - Requested model path: `/file_system/models/bge-m3` (not present at bootstrap)
 - Resolved bge-m3 path:
   `/file_system/models/embedding_models/bge-m3`
 - Primary GPU: the available NVIDIA A100-SXM4-80GB; do not search for a 4090.
 
-Use Python 3.11 in the isolated environment. It may be created with
-`--system-site-packages` to reuse the working CUDA-enabled PyTorch installation.
-Never install project dependencies into the base environment.
+Use Python 3.11 in the existing `topocf-rag-cert-v1` Conda environment. Never
+install project dependencies into the base environment or recreate a project
+`.venv` unless the user explicitly changes the environment decision.
 
 ## Data rules
 
@@ -105,9 +116,10 @@ Token-length difference may not exceed 5%.
 - T2 swaps bridge-document roles while retaining the same question and nodes.
 - T3 performs degree-preserving 2-switch rewiring.
 
-Use leave-one-perturbation-out evaluation: train on two types and reserve the
-third exclusively for held-out testing. Natural negatives are always evaluated
-separately and never enter synthetic training data.
+Do not use the old leave-one-perturbation-out plan as a primary claim: the
+generators are not disjoint topology classes and several are solved by explicit
+reachability. Natural negatives are always evaluated separately and never
+enter synthetic training data.
 
 ## Metrics and serialization
 

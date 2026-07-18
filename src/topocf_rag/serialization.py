@@ -181,6 +181,33 @@ def all_four_document_relabelings(
     )
 
 
+def deterministic_four_document_permutation(
+    *,
+    seed: int,
+    epoch: int,
+    item_key: str,
+) -> tuple[str, str, str, str]:
+    """Return the reproducible S4 permutation shared by a matched pair."""
+
+    if not isinstance(seed, int) or isinstance(seed, bool):
+        raise TypeError("seed must be an integer")
+    if not isinstance(epoch, int) or isinstance(epoch, bool) or epoch < 0:
+        raise ValueError("epoch must be a non-negative integer")
+    if not isinstance(item_key, str) or not item_key:
+        raise ValueError("item_key must be a non-empty string")
+    aliases = ("d0", "d1", "d2", "d3")
+    orbit = tuple(permutations(aliases))
+    digest = hashlib.sha256(
+        json.dumps(
+            [seed, epoch, item_key],
+            ensure_ascii=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).digest()
+    selected = orbit[int.from_bytes(digest[:8], "big") % len(orbit)]
+    return selected
+
+
 def deterministic_training_relabeling(
     topology: EvidenceTopology,
     *,
@@ -190,21 +217,12 @@ def deterministic_training_relabeling(
 ) -> EvidenceTopology:
     """Choose one reproducible epoch-dependent S4 augmentation."""
 
-    if not isinstance(seed, int) or isinstance(seed, bool):
-        raise TypeError("seed must be an integer")
-    if not isinstance(epoch, int) or isinstance(epoch, bool) or epoch < 0:
-        raise ValueError("epoch must be a non-negative integer")
-    if not isinstance(item_key, str) or not item_key:
-        raise ValueError("item_key must be a non-empty string")
-    orbit = all_four_document_relabelings(topology)
-    digest = hashlib.sha256(
-        json.dumps(
-            [seed, epoch, item_key],
-            ensure_ascii=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).digest()
-    return orbit[int.from_bytes(digest[:8], "big") % len(orbit)]
+    permutation = deterministic_four_document_permutation(
+        seed=seed,
+        epoch=epoch,
+        item_key=item_key,
+    )
+    return relabel_evidence_topology(topology, permutation)
 
 
 def _token_count(encoded: Any) -> int:

@@ -25,11 +25,20 @@ Current primary feasibility:
 - model-visible permutation-invariant structural rules: 0.5 on both T3 strata;
 - all-observed HotpotQA dev remains underpowered relative to the minimum 50.
 
+The synthetic-T3 official-train population is now frozen into 129 fit
+questions/294 pairs and 32 train-only inner-validation questions/74 pairs.
+Fit and validation are question-disjoint and stratified by per-question T3 pair
+count. Official dev remains untouched until model and checkpoint selection are
+complete. Use `topocf_data_v1.json` as the model-facing artifact contract.
+
 Run the design audit with:
 
 ```bash
-.venv/bin/python scripts/audit_phase1_design.py
-.venv/bin/python scripts/audit_method_readiness.py
+source /home/mkb524/miniconda3/etc/profile.d/conda.sh
+conda activate topocf-rag-cert-v1
+python scripts/audit_phase1_design.py
+python scripts/audit_method_readiness.py
+python scripts/prepare_method_inner_split.py
 ```
 
 ## Mission

@@ -159,6 +159,12 @@ authorizes bounded synthetic-T3 method development, but the all-observed
 HotpotQA confirmatory set has only 12 dev questions and does not authorize a
 paper claim.
 
+`scripts/prepare_method_inner_split.py` freezes the question-disjoint,
+train-only model-selection split: 129 questions/294 pairs for fitting and 32/74
+for inner validation. Official dev is not used for hyperparameter or checkpoint
+selection. The synchronized training permutation and exact 24-permutation
+validation orbit are implemented in `src/topocf_rag/method_data.py`.
+
 ## Graph-aware retrieval kill test
 
 The Phase 0 title graph was originally constructed after dense retrieval.  A
