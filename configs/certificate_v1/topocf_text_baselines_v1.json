@@ -1,0 +1,79 @@
+{
+  "artifacts": {
+    "data_config": {
+      "path": "configs/certificate_v1/topocf_data_v1.json",
+      "sha256": "f4c99277498fe0f6b21eb287f0d93ee018ff463b12ce864fa2dace8f2e140641"
+    },
+    "inner_split": {
+      "path": "data/splits/topocf_t3_train_inner_v1.json",
+      "sha256": "2d32b948bfa9e0a40c0c62b6b694250f6c14adc9d69640acd56d98f24accc8db"
+    },
+    "train_pair_manifest": {
+      "path": "data/phase1/hotpot_train_phase1_pairs.json",
+      "sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+    }
+  },
+  "baselines": {
+    "flat_cross_encoder": "one joint question-plus-neutral-topology reranker logit",
+    "independent_edge": "arithmetic mean of four separately scored local typed-edge logits; no binding constraint"
+  },
+  "checkpoint_selection": {
+    "primary": "inner-validation question-macro matched-pair accuracy",
+    "secondary": "mean of per-question mean score margins",
+    "tertiary": "earlier epoch",
+    "zero_shot_epoch": 0
+  },
+  "data": {
+    "fit": "129 official-train questions and 294 synthetic_common/t3 pairs",
+    "inner_validation": "32 official-train questions and 74 synthetic_common/t3 pairs",
+    "official_dev_used": false,
+    "permutation_train": "one shared deterministic S4 relabeling per pair and epoch",
+    "permutation_validation": "exact mean over all 24 synchronized S4 relabelings"
+  },
+  "model": {
+    "development_checkpoint": "Qwen/Qwen3-Reranker-0.6B",
+    "expected_fingerprint_sha256": null,
+    "local_path": "/home/mkb524/topocf-rag-models/Qwen3-Reranker-0.6B",
+    "provider": "Qwen official Hugging Face checkpoint",
+    "scale_confirmation_checkpoint": "Qwen/Qwen3-Reranker-4B"
+  },
+  "reranker_input_protocol_sha256": "75fefad916c97b45c5f5573e00a25c746586352cae4b1432f6d68d32e8ee0fd5",
+  "schema_version": 1,
+  "training": {
+    "bootstrap_repetitions": 2000,
+    "bootstrap_seed": 20260718,
+    "early_stopping_patience": 2,
+    "epochs": 8,
+    "evaluation_batch_size": 16,
+    "gradient_accumulation_pairs": 8,
+    "gradient_clip_norm": 1.0,
+    "learning_rate_candidates": [
+      0.0001,
+      0.0002
+    ],
+    "lora": {
+      "alpha": 16,
+      "bias": "none",
+      "dropout": 0.05,
+      "rank": 8,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "margin": 0.2,
+    "max_length": 1024,
+    "optimizer": "AdamW",
+    "seeds": [
+      20260718,
+      20260719,
+      20260720
+    ],
+    "weight_decay": 0.01
+  }
+}

@@ -165,6 +165,15 @@ for inner validation. Official dev is not used for hyperparameter or checkpoint
 selection. The synchronized training permutation and exact 24-permutation
 validation orbit are implemented in `src/topocf_rag/method_data.py`.
 
+The first learned controls are frozen in
+[`docs/TOPOCF_TEXT_BASELINES_PROTOCOL.md`](docs/TOPOCF_TEXT_BASELINES_PROTOCOL.md).
+`scripts/train_method_baseline.py` gives the flat joint cross-encoder and the
+independent local-edge scorer the same `Qwen3-Reranker-0.6B` LoRA budget. Both
+fit only the train-only inner split and select checkpoints only with exact
+24-permutation inner validation. Run `--audit-only` and then `--smoke` before
+either formal learning-rate candidate. Checkpoints and run reports stay in the
+user's private run directory outside the Git repository.
+
 ## Graph-aware retrieval kill test
 
 The Phase 0 title graph was originally constructed after dense retrieval.  A

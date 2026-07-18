@@ -414,6 +414,8 @@ class CounterfactualTrainingExample:
     question: str
     epoch: int
     old_aliases_in_new_order: tuple[str, str, str, str]
+    positive_topology: EvidenceTopology
+    negative_topology: EvidenceTopology
     positive: SerializedTopology
     negative: SerializedTopology
     positive_binding_target: tuple[tuple[int, ...], ...]
@@ -428,6 +430,8 @@ class CounterfactualEvaluationExample:
     pair_id: str
     qid: str
     question: str
+    positive_topology_orbit: tuple[EvidenceTopology, ...]
+    negative_topology_orbit: tuple[EvidenceTopology, ...]
     positive_orbit: tuple[SerializedTopology, ...]
     negative_orbit: tuple[SerializedTopology, ...]
     positive_binding_targets: tuple[tuple[tuple[int, ...], ...], ...]
@@ -491,6 +495,8 @@ def build_training_examples(
                 question=positive.question,
                 epoch=epoch,
                 old_aliases_in_new_order=permutation,
+                positive_topology=positive,
+                negative_topology=negative,
                 positive=serialize_evidence_topology(positive),
                 negative=serialize_evidence_topology(negative),
                 positive_binding_target=_binding_matrix(positive),
@@ -524,6 +530,8 @@ def build_evaluation_examples(
                 pair_id=pair.pair_id,
                 qid=pair.qid,
                 question=pair.positive.topology.question,
+                positive_topology_orbit=positives,
+                negative_topology_orbit=negatives,
                 positive_orbit=tuple(
                     serialize_evidence_topology(item) for item in positives
                 ),

@@ -54,6 +54,13 @@ Use Python 3.11 in the existing `topocf-rag-cert-v1` Conda environment. Never
 install project dependencies into the base environment or recreate a project
 `.venv` unless the user explicitly changes the environment decision.
 
+Learned text baselines use the user-owned
+`/home/mkb524/topocf-rag-models/Qwen3-Reranker-0.6B` checkpoint and require
+`peft>=0.19,<1`. Their checkpoints and run reports must remain outside Git
+under `/home/mkb524/topocf-rag-runs/text-baselines-v1`. Run both input audits
+and bounded smokes before formal training; never use official dev in these
+runs.
+
 ## Data rules
 
 - Read large JSON files with a streaming parser. Never print full examples or
