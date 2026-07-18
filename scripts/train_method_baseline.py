@@ -29,6 +29,7 @@ from topocf_rag.method_baselines import (
     build_baseline_training_pairs,
     protocol_sha256,
     reranker_token_ids,
+    resolve_replication_epoch,
 )
 from topocf_rag.method_data import (
     METHOD_DATA_SEED,
@@ -185,6 +186,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gradient-accumulation-pairs", type=int)
     parser.add_argument("--audit-only", action="store_true")
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument(
+        "--replicate-selected",
+        action="store_true",
+        help=(
+            "For frozen non-selection seeds, train exactly the selected learning "
+            "rate and epoch without performing another validation selection."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -462,6 +471,17 @@ def main() -> int:
             "reranker input implementation changed from the frozen config"
         )
     training = resolve_training_config(args, config)
+    replication_epoch = resolve_replication_epoch(
+        config,
+        baseline=args.baseline,
+        seed=args.seed,
+        learning_rate=args.learning_rate,
+        replicate_selected=args.replicate_selected,
+        smoke_only=args.smoke,
+        audit_only=args.audit_only,
+    )
+    if replication_epoch is not None:
+        training["epochs"] = replication_epoch
     versions = package_versions()
     fingerprint = model_fingerprint(model_path)
     model_config = _require_mapping(config.get("model"), "config.model")
@@ -561,6 +581,12 @@ def main() -> int:
                 if args.baseline == "flat_cross_encoder"
                 else "arithmetic mean of four local edge logits"
             ),
+            "checkpoint_selection_mode": (
+                "fixed_epoch_replication"
+                if replication_epoch is not None
+                else "inner_validation_selection"
+            ),
+            "frozen_replication_epoch": replication_epoch,
             "automatic_retries": 0,
         },
         "model": {
@@ -659,10 +685,16 @@ def main() -> int:
     )
     history.append({"epoch": 0, "training_loss": None, "validation": zero_report})
     output_dir.mkdir(parents=True, mode=0o700)
-    checkpoint = _save_checkpoint(model, output_dir / "checkpoint-epoch-0")
-    checkpoints.append({"epoch": 0, **checkpoint})
-    best_epoch = 0
-    best_key = _validation_key(zero_report, 0)
+    best_epoch: int | None
+    best_key: tuple[float, float, int] | None
+    if replication_epoch is None:
+        checkpoint = _save_checkpoint(model, output_dir / "checkpoint-epoch-0")
+        checkpoints.append({"epoch": 0, **checkpoint})
+        best_epoch = 0
+        best_key = _validation_key(zero_report, 0)
+    else:
+        best_epoch = None
+        best_key = None
     epochs_without_improvement = 0
     accumulation = int(training["gradient_accumulation_pairs"])
 
@@ -729,17 +761,27 @@ def main() -> int:
                 "validation": validation_report,
             }
         )
-        key = _validation_key(validation_report, epoch)
-        if key > best_key:
-            best_key = key
-            best_epoch = epoch
-            epochs_without_improvement = 0
-            checkpoint = _save_checkpoint(
-                model, output_dir / f"checkpoint-epoch-{epoch}"
-            )
-            checkpoints.append({"epoch": epoch, **checkpoint})
+        if replication_epoch is not None:
+            if epoch == replication_epoch:
+                best_epoch = epoch
+                checkpoint = _save_checkpoint(
+                    model, output_dir / f"checkpoint-epoch-{epoch}"
+                )
+                checkpoints.append({"epoch": epoch, **checkpoint})
         else:
-            epochs_without_improvement += 1
+            key = _validation_key(validation_report, epoch)
+            if best_key is None:
+                raise RuntimeError("selection key was not initialized")
+            if key > best_key:
+                best_key = key
+                best_epoch = epoch
+                epochs_without_improvement = 0
+                checkpoint = _save_checkpoint(
+                    model, output_dir / f"checkpoint-epoch-{epoch}"
+                )
+                checkpoints.append({"epoch": epoch, **checkpoint})
+            else:
+                epochs_without_improvement += 1
         partial = {
             **common_report,
             "model_parameters": {
@@ -771,9 +813,15 @@ def main() -> int:
             ),
             flush=True,
         )
-        if epochs_without_improvement >= int(training["early_stopping_patience"]):
+        if (
+            replication_epoch is None
+            and epochs_without_improvement
+            >= int(training["early_stopping_patience"])
+        ):
             break
 
+    if best_epoch is None:
+        raise RuntimeError("frozen replication epoch was not completed")
     final = {
         **common_report,
         "run_fingerprint": stable_sha256(
@@ -784,6 +832,7 @@ def main() -> int:
                 "model_sha256": fingerprint["sha256"],
                 "config_sha256": sha256_file(config_path),
                 "training": training,
+                "replication_epoch": replication_epoch,
             }
         ),
         "model_parameters": {

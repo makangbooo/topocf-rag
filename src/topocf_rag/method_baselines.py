@@ -97,6 +97,91 @@ def _require_baseline(value: str) -> BaselineName:
     return value  # type: ignore[return-value]
 
 
+def resolve_replication_epoch(
+    config: Mapping[str, Any],
+    *,
+    baseline: str,
+    seed: int,
+    learning_rate: float,
+    replicate_selected: bool,
+    smoke_only: bool = False,
+    audit_only: bool = False,
+) -> int | None:
+    """Lock non-selection seeds to the already selected LR and epoch.
+
+    Seed ``20260718`` is the sole hyperparameter-selection run.  Later seeds
+    must reproduce its frozen learning rate and epoch instead of selecting a
+    fresh checkpoint on the same inner-validation questions.
+    """
+
+    resolved_baseline = _require_baseline(baseline)
+    if not isinstance(replicate_selected, bool):
+        raise TypeError("replicate_selected must be bool")
+    if smoke_only or audit_only:
+        if replicate_selected:
+            raise MethodBaselineInvariantError(
+                "selected-config replication cannot be combined with smoke or audit"
+            )
+        return None
+    selected = config.get("selected_configurations")
+    if not isinstance(selected, Mapping):
+        raise MethodBaselineInvariantError(
+            "formal seed replication is locked until selected configurations are frozen"
+        )
+    selection_seed = selected.get("selection_seed")
+    replication_seeds = selected.get("replication_seeds")
+    if not isinstance(selection_seed, int) or isinstance(selection_seed, bool):
+        raise MethodBaselineInvariantError("selection seed is invalid")
+    if not isinstance(replication_seeds, list) or any(
+        not isinstance(value, int) or isinstance(value, bool)
+        for value in replication_seeds
+    ):
+        raise MethodBaselineInvariantError("replication seeds are invalid")
+    if seed == selection_seed:
+        if replicate_selected:
+            raise MethodBaselineInvariantError(
+                "the selection seed cannot be rerun as an independent replication"
+            )
+        return None
+    if seed not in replication_seeds:
+        raise MethodBaselineInvariantError("seed is not a frozen replication seed")
+    if not replicate_selected:
+        raise MethodBaselineInvariantError(
+            "non-selection seeds require --replicate-selected so validation cannot "
+            "select another epoch"
+        )
+    by_baseline = selected.get("by_baseline")
+    if not isinstance(by_baseline, Mapping):
+        raise MethodBaselineInvariantError("selected baseline map is invalid")
+    baseline_selection = by_baseline.get(resolved_baseline)
+    if not isinstance(baseline_selection, Mapping):
+        raise MethodBaselineInvariantError(
+            f"no selected configuration for {resolved_baseline}"
+        )
+    expected_learning_rate = baseline_selection.get("learning_rate")
+    epoch = baseline_selection.get("selected_epoch")
+    if (
+        not isinstance(expected_learning_rate, (int, float))
+        or isinstance(expected_learning_rate, bool)
+        or not math.isfinite(float(expected_learning_rate))
+        or not isinstance(epoch, int)
+        or isinstance(epoch, bool)
+        or epoch < 1
+    ):
+        raise MethodBaselineInvariantError("selected baseline settings are invalid")
+    if not math.isclose(
+        learning_rate,
+        float(expected_learning_rate),
+        rel_tol=0.0,
+        abs_tol=1e-15,
+    ):
+        raise MethodBaselineInvariantError(
+            f"{resolved_baseline} replication requires learning_rate="
+            f"{expected_learning_rate}"
+        )
+    return epoch
+
+
 def format_reranker_input(
     question: str,
     document: str,

@@ -1,0 +1,88 @@
+{
+  "candidate_runs": {
+    "flat_cross_encoder": [
+      {
+        "learning_rate": 0.0001,
+        "mean_question_mean_margin": 0.005010695684523828,
+        "report_sha256": "49b3d50d237eb21aad4856c3b7d7303fa052e1c9d99267747b477f9cec64cf71",
+        "run_fingerprint": "1bf1b0db07ba41d1f7d811e1a454a2dd60144aef315be9f468137fb2852d9eee",
+        "selected_auroc": 0.6345611004818594,
+        "selected_epoch": 1,
+        "selected_pairwise_accuracy": 0.6961681547619049
+      },
+      {
+        "learning_rate": 0.0002,
+        "mean_question_mean_margin": 0.00592312282986115,
+        "report_sha256": "f25329ba695933232d134c2213d35d718378beb93402478dc016fe8e68766493",
+        "run_fingerprint": "89ba25f1449e62df65c5fbf92f332724431ad917771ec369d3d48e2dad5689b0",
+        "selected_auroc": 0.616900111607143,
+        "selected_epoch": 0,
+        "selected_pairwise_accuracy": 0.6700520833333333
+      }
+    ],
+    "independent_edge": [
+      {
+        "learning_rate": 0.0001,
+        "mean_question_mean_margin": 1.6166675385974703,
+        "report_sha256": "fbf330064d982773da38fdb42187f881e47e5dbbd0db37bdaa8d5a85d6554bd3",
+        "run_fingerprint": "1fd99caad0fd3cadf7fd4ca7143816a3faf4798e68a3edf56c4ea50bc83157e3",
+        "selected_auroc": 0.998046875,
+        "selected_epoch": 6,
+        "selected_pairwise_accuracy": 1.0
+      },
+      {
+        "learning_rate": 0.0002,
+        "mean_question_mean_margin": 2.611211480034722,
+        "report_sha256": "b5a710cd01392b839285e657d7b54b3f29a1aa1561a8e4781ee3eef6d827b5c2",
+        "run_fingerprint": "eebb060aef5c8a4db441b0c4a863f7dbb3eae1746b91546c3eb95af032aedf45",
+        "selected_auroc": 0.99853515625,
+        "selected_epoch": 4,
+        "selected_pairwise_accuracy": 1.0
+      }
+    ]
+  },
+  "content_contract": "aggregate metrics, run fingerprints, and hashes only; no question IDs, questions, document text, or model inputs",
+  "data": {
+    "fit_pair_count": 294,
+    "fit_question_count": 129,
+    "official_dev_used": false,
+    "validation_pair_count": 74,
+    "validation_question_count": 32
+  },
+  "interpretation": {
+    "candidate_method_stop_signal": true,
+    "formal_method_claim_killed": false,
+    "reason": "The independent local-edge factorization reached the validation ceiling, so the current T3 task may be locally decomposable rather than requiring a global binding constraint.",
+    "required_next_step": "Replicate each frozen learning-rate and epoch choice with seeds 20260719 and 20260720 before any official-dev evaluation or full constrained-method training."
+  },
+  "model_fingerprint_sha256": "01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb",
+  "schema_version": 1,
+  "selected_configurations": {
+    "flat_cross_encoder": {
+      "checkpoint_sha256": "bfaf76baad0ee21d6aaa16c4c81a55419067743e7aebe33dc483d9d3c073ac14",
+      "learning_rate": 0.0001,
+      "selected_epoch": 1,
+      "selected_report_sha256": "49b3d50d237eb21aad4856c3b7d7303fa052e1c9d99267747b477f9cec64cf71",
+      "selected_run_fingerprint": "1bf1b0db07ba41d1f7d811e1a454a2dd60144aef315be9f468137fb2852d9eee"
+    },
+    "independent_edge": {
+      "checkpoint_sha256": "0b53e502abeb35dab6c2d4cc1bf97319d424c7485485af10112ac5f8d285de9d",
+      "learning_rate": 0.0002,
+      "selected_epoch": 4,
+      "selected_report_sha256": "b5a710cd01392b839285e657d7b54b3f29a1aa1561a8e4781ee3eef6d827b5c2",
+      "selected_run_fingerprint": "eebb060aef5c8a4db441b0c4a863f7dbb3eae1746b91546c3eb95af032aedf45"
+    }
+  },
+  "selection": {
+    "candidate_learning_rates": [
+      0.0001,
+      0.0002
+    ],
+    "primary": "inner-validation question-macro matched-pair accuracy",
+    "secondary": "mean of per-question mean score margins",
+    "selection_seed": 20260718,
+    "tertiary": "earlier epoch"
+  },
+  "source_configuration_sha256": "f70e6e71d90e2ff2f97e5e0a0786c7d3f5f6a7a6ed3b0f8aecec0d273129f9e5",
+  "task": "topocf_text_baseline_inner_validation_selection"
+}

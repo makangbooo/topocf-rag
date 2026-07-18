@@ -18,6 +18,7 @@ from topocf_rag.method_baselines import (
     protocol_sha256,
     render_local_edge,
     reranker_token_ids,
+    resolve_replication_epoch,
 )
 from topocf_rag.method_data import (
     build_evaluation_examples,
@@ -245,3 +246,82 @@ def test_baseline_config_freezes_prompt_and_never_uses_official_dev() -> None:
     for artifact in config["artifacts"].values():
         path = ROOT / artifact["path"]
         assert hashlib.sha256(path.read_bytes()).hexdigest() == artifact["sha256"]
+
+
+def test_selected_configurations_lock_replication_learning_rate_and_epoch() -> None:
+    config = json.loads(BASELINE_CONFIG.read_text(encoding="utf-8"))
+    assert resolve_replication_epoch(
+        config,
+        baseline="flat_cross_encoder",
+        seed=20260719,
+        learning_rate=0.0001,
+        replicate_selected=True,
+    ) == 1
+    assert resolve_replication_epoch(
+        config,
+        baseline="independent_edge",
+        seed=20260720,
+        learning_rate=0.0002,
+        replicate_selected=True,
+    ) == 4
+    assert resolve_replication_epoch(
+        config,
+        baseline="flat_cross_encoder",
+        seed=20260718,
+        learning_rate=0.0001,
+        replicate_selected=False,
+    ) is None
+
+
+def test_replication_rejects_fresh_selection_or_wrong_learning_rate() -> None:
+    config = json.loads(BASELINE_CONFIG.read_text(encoding="utf-8"))
+    with pytest.raises(MethodBaselineInvariantError, match="require"):
+        resolve_replication_epoch(
+            config,
+            baseline="flat_cross_encoder",
+            seed=20260719,
+            learning_rate=0.0001,
+            replicate_selected=False,
+        )
+    with pytest.raises(MethodBaselineInvariantError, match="learning_rate=0.0002"):
+        resolve_replication_epoch(
+            config,
+            baseline="independent_edge",
+            seed=20260719,
+            learning_rate=0.0001,
+            replicate_selected=True,
+        )
+    with pytest.raises(MethodBaselineInvariantError, match="selection seed"):
+        resolve_replication_epoch(
+            config,
+            baseline="independent_edge",
+            seed=20260718,
+            learning_rate=0.0002,
+            replicate_selected=True,
+        )
+
+
+def test_selection_report_is_aggregate_only_and_matches_frozen_choices() -> None:
+    path = ROOT / "reports/phase1/text_baseline_selection.json"
+    report = json.loads(path.read_text(encoding="utf-8"))
+    assert report["data"] == {
+        "fit_pair_count": 294,
+        "fit_question_count": 129,
+        "official_dev_used": False,
+        "validation_pair_count": 74,
+        "validation_question_count": 32,
+    }
+    assert report["selected_configurations"]["flat_cross_encoder"][
+        "learning_rate"
+    ] == 0.0001
+    assert report["selected_configurations"]["flat_cross_encoder"][
+        "selected_epoch"
+    ] == 1
+    assert report["selected_configurations"]["independent_edge"][
+        "learning_rate"
+    ] == 0.0002
+    assert report["selected_configurations"]["independent_edge"][
+        "selected_epoch"
+    ] == 4
+    assert report["interpretation"]["candidate_method_stop_signal"] is True
+    assert report["interpretation"]["formal_method_claim_killed"] is False

@@ -174,6 +174,11 @@ fit only the train-only inner split and select checkpoints only with exact
 either formal learning-rate candidate. Checkpoints and run reports stay in the
 user's private run directory outside the Git repository.
 
+The initial learning-rate selection is frozen in
+`reports/phase1/text_baseline_selection.json`. Cross-seed runs must use
+`--replicate-selected`, which locks both learning rate and epoch instead of
+reselecting on the same inner-validation set.
+
 ## Graph-aware retrieval kill test
 
 The Phase 0 title graph was originally constructed after dense retrieval.  A

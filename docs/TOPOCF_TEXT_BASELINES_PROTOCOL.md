@@ -102,6 +102,37 @@ use both frozen learning-rate candidates for seed `20260718`; after choosing
 one learning rate per baseline on inner validation, repeat that configuration
 for seeds `20260719` and `20260720`.
 
+The seed-`20260718` selection is now frozen. The flat cross-encoder selected
+learning rate `1e-4` and epoch 1 (pairwise accuracy `0.6962`). The independent
+local-edge baseline selected learning rate `2e-4` and epoch 4 after its two
+learning-rate candidates tied at pairwise accuracy `1.0` and the frozen
+secondary margin rule preferred `2e-4`. The aggregate-only selection evidence,
+report hashes, run fingerprints, and checkpoint hashes are recorded in
+`reports/phase1/text_baseline_selection.json`.
+
+The remaining seeds are replications, not additional checkpoint-selection
+runs. The script rejects a non-selection seed unless `--replicate-selected` is
+present, the selected learning rate is supplied, and the frozen epoch is used:
+
+```bash
+for seed in 20260719 20260720; do
+  CUDA_VISIBLE_DEVICES=0 python scripts/train_method_baseline.py \
+    --baseline flat_cross_encoder \
+    --learning-rate 0.0001 \
+    --seed "$seed" \
+    --replicate-selected
+
+  CUDA_VISIBLE_DEVICES=0 python scripts/train_method_baseline.py \
+    --baseline independent_edge \
+    --learning-rate 0.0002 \
+    --seed "$seed" \
+    --replicate-selected
+done
+```
+
+During replication, inner-validation metrics are still reported for stability,
+but they cannot select a different epoch. Only the frozen final epoch is saved.
+
 Checkpoints and reports are written below
 `/home/mkb524/topocf-rag-runs/text-baselines-v1` with mode-restricted parent
 directories. They must not be committed. Reports contain aggregate metrics,
@@ -114,3 +145,11 @@ validation, silently truncates input, or changes the frozen data/prompt hash.
 Do not claim a constrained-binding contribution unless the final method beats
 both learned baselines and yields a positive structured-repair result. A win
 only over BM25/bge-m3 is insufficient.
+
+The seed-`20260718` independent-edge ceiling is a candidate stop signal, not
+yet a final conclusion. If the fixed epoch-4 configuration remains at or near
+ceiling for both replication seeds, stop the current synthetic-T3 method claim
+before training a global binding model: the task is empirically solvable from
+independent local grounding and does not demonstrate the need for a one-to-one
+binding constraint. Redesigning the counterfactual so every local edge is
+individually plausible would then be required before method development resumes.

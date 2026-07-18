@@ -8,6 +8,10 @@
       "path": "data/splits/topocf_t3_train_inner_v1.json",
       "sha256": "2d32b948bfa9e0a40c0c62b6b694250f6c14adc9d69640acd56d98f24accc8db"
     },
+    "selection_report": {
+      "path": "reports/phase1/text_baseline_selection.json",
+      "sha256": "a9ae529027ef9bf41967809d4c1254ede65a726675a50e8ede7030ddf4ed8e3e"
+    },
     "train_pair_manifest": {
       "path": "data/phase1/hotpot_train_phase1_pairs.json",
       "sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
@@ -73,6 +77,29 @@
   },
   "reranker_input_protocol_sha256": "75fefad916c97b45c5f5573e00a25c746586352cae4b1432f6d68d32e8ee0fd5",
   "schema_version": 1,
+  "selected_configurations": {
+    "by_baseline": {
+      "flat_cross_encoder": {
+        "checkpoint_sha256": "bfaf76baad0ee21d6aaa16c4c81a55419067743e7aebe33dc483d9d3c073ac14",
+        "learning_rate": 0.0001,
+        "selected_epoch": 1,
+        "selected_report_sha256": "49b3d50d237eb21aad4856c3b7d7303fa052e1c9d99267747b477f9cec64cf71",
+        "selected_run_fingerprint": "1bf1b0db07ba41d1f7d811e1a454a2dd60144aef315be9f468137fb2852d9eee"
+      },
+      "independent_edge": {
+        "checkpoint_sha256": "0b53e502abeb35dab6c2d4cc1bf97319d424c7485485af10112ac5f8d285de9d",
+        "learning_rate": 0.0002,
+        "selected_epoch": 4,
+        "selected_report_sha256": "b5a710cd01392b839285e657d7b54b3f29a1aa1561a8e4781ee3eef6d827b5c2",
+        "selected_run_fingerprint": "eebb060aef5c8a4db441b0c4a863f7dbb3eae1746b91546c3eb95af032aedf45"
+      }
+    },
+    "replication_seeds": [
+      20260719,
+      20260720
+    ],
+    "selection_seed": 20260718
+  },
   "training": {
     "bootstrap_repetitions": 2000,
     "bootstrap_seed": 20260718,
