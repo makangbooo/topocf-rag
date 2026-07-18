@@ -231,7 +231,13 @@ def test_baseline_config_freezes_prompt_and_never_uses_official_dev() -> None:
     config = json.loads(BASELINE_CONFIG.read_text(encoding="utf-8"))
     assert config["reranker_input_protocol_sha256"] == protocol_sha256()
     assert config["data"]["official_dev_used"] is False
-    assert config["model"]["expected_fingerprint_sha256"] is None
+    assert config["model"]["expected_fingerprint_sha256"] == (
+        "01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb"
+    )
+    assert config["model"]["audited_files"]["model.safetensors"] == {
+        "sha256": "27cd75a405b9c1b46b59abfd88aaa209e6fed2a1972cde9b70e7659537c5e65b",
+        "size_bytes": 1191588280,
+    }
     assert set(config["baselines"]) == {
         "flat_cross_encoder",
         "independent_edge",

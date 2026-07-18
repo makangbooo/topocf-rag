@@ -75,6 +75,13 @@ text or IDs. Formal training remains code-locked until the audited combined
 model fingerprint is copied into the frozen configuration in a reviewed
 commit.
 
+The 2026-07-18 audits passed with the same combined model fingerprint
+`01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb`
+for both factorizations. Flat inputs peaked at 677 tokens and independent-edge
+inputs at 519 tokens, so the 1,024-token hard limit preserves every audited
+input. The fingerprint and every constituent file digest are now frozen in
+the configuration.
+
 Then run one bounded smoke for each baseline:
 
 ```bash

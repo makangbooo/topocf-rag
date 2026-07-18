@@ -31,8 +31,42 @@
     "permutation_validation": "exact mean over all 24 synchronized S4 relabelings"
   },
   "model": {
+    "audited_files": {
+      "config.json": {
+        "sha256": "d479c427a9ca5295218063d4f9aca4f297ab4ac27487cca7af42c84643d51ef0",
+        "size_bytes": 727
+      },
+      "generation_config.json": {
+        "sha256": "81051cd3f6e77013827148d0b8a6ead93f8ac390d5ab805f849199f0af6a08db",
+        "size_bytes": 214
+      },
+      "merges.txt": {
+        "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "size_bytes": 1671853
+      },
+      "model.safetensors": {
+        "sha256": "27cd75a405b9c1b46b59abfd88aaa209e6fed2a1972cde9b70e7659537c5e65b",
+        "size_bytes": 1191588280
+      },
+      "tokenizer.json": {
+        "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "size_bytes": 11422654
+      },
+      "tokenizer_config.json": {
+        "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+        "size_bytes": 9706
+      },
+      "vocab.json": {
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+        "size_bytes": 2776833
+      }
+    },
     "development_checkpoint": "Qwen/Qwen3-Reranker-0.6B",
-    "expected_fingerprint_sha256": null,
+    "expected_fingerprint_sha256": "01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb",
+    "fingerprint_source": {
+      "flat_audit_report_sha256": "09e47432d0e69be3ebd2bca76f4d393301b3a3d4d5bb0c42f0ea411f169c912a",
+      "independent_edge_audit_report_sha256": "315af7f4db85f67e8436b3afb9108bdd9d5c78cd55dd086638ca45dee9e5b5dd"
+    },
     "local_path": "/home/mkb524/topocf-rag-models/Qwen3-Reranker-0.6B",
     "provider": "Qwen official Hugging Face checkpoint",
     "scale_confirmation_checkpoint": "Qwen/Qwen3-Reranker-4B"
