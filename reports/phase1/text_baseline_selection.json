@@ -52,10 +52,11 @@
   "interpretation": {
     "candidate_method_stop_signal": true,
     "current_global_binding_training_authorized": false,
-    "formal_method_claim_killed": false,
-    "reason": "The independent local-edge factorization reached pairwise accuracy 1.0 for all three frozen seeds, so the current T3 task is stably locally decomposable on train-only validation and does not yet demonstrate the need for a global binding constraint.",
+    "formal_method_claim_killed": true,
+    "official_dev_gate_decision": "STOP_CURRENT_METHOD",
+    "reason": "The independent local-edge factorization reached pairwise accuracy 1.0 for all three frozen train-only validation seeds and a three-seed mean of 0.999145 on untouched official dev, so the current T3 task is locally decomposable and does not demonstrate the need for a global binding constraint.",
     "replication_stop_signal_confirmed": true,
-    "required_next_step": "Run each hash-frozen checkpoint exactly once on untouched official dev. Do not train the constrained global-binding method unless that external confirmation materially contradicts the train-only stop signal."
+    "required_next_step": "Audit and expand an all-observed rewire task where every local edge is textually grounded; do not train the stopped constrained global-binding method."
   },
   "model_fingerprint_sha256": "01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb",
   "schema_version": 1,

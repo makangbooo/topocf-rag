@@ -12,9 +12,13 @@
       "path": "data/phase1/hotpot_dev_phase1_pairs.json",
       "sha256": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35"
     },
+    "official_dev_gate_report": {
+      "path": "reports/phase1/text_baseline_dev_gate.json",
+      "sha256": "36cf63a587cb41dae826ea0976a8ee7097539115a83ba3b211e86ff4469e3d4e"
+    },
     "selection_report": {
       "path": "reports/phase1/text_baseline_selection.json",
-      "sha256": "ebc5256ff9603ac35676cad9579bcd6a68d3216cbd85903bd40256a1ce94dea2"
+      "sha256": "09cf4dbfba03ae564e0238bc8e629455f3924bacbae16cd8f78c005b33f1f317"
     },
     "train_pair_manifest": {
       "path": "data/phase1/hotpot_train_phase1_pairs.json",
@@ -81,6 +85,13 @@
   },
   "reranker_input_protocol_sha256": "75fefad916c97b45c5f5573e00a25c746586352cae4b1432f6d68d32e8ee0fd5",
   "schema_version": 1,
+  "final_decision": {
+    "current_global_binding_training_authorized": false,
+    "decision": "STOP_CURRENT_METHOD",
+    "official_dev_pairwise_accuracy_mean": 0.9991452991452991,
+    "reason": "The independent local-edge baseline meets the frozen stop gate on all three official-dev runs.",
+    "replacement_direction": "all-observed local-plausibility counterfactuals"
+  },
   "official_dev_evaluation": {
     "checkpoint_policy": "all three mandatory independent-edge checkpoints are scored exactly once; no ensembling, tuning, thresholding, or checkpoint replacement",
     "decision_gate": {

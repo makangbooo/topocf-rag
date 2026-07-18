@@ -333,7 +333,10 @@ def test_selection_report_is_aggregate_only_and_matches_frozen_choices() -> None
         "selected_epoch"
     ] == 4
     assert report["interpretation"]["candidate_method_stop_signal"] is True
-    assert report["interpretation"]["formal_method_claim_killed"] is False
+    assert report["interpretation"]["formal_method_claim_killed"] is True
+    assert report["interpretation"]["official_dev_gate_decision"] == (
+        "STOP_CURRENT_METHOD"
+    )
 
 
 def test_official_dev_checkpoint_resolution_is_hash_and_seed_locked() -> None:

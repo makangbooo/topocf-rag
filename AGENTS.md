@@ -39,6 +39,14 @@ must not be used for loss-weight, hyperparameter, epoch, or checkpoint
 selection. Synchronized training-time S4 relabeling and exact 24-permutation
 score averaging for validation are mandatory.
 
+That bounded `synthetic_common/t3` method route is now stopped. The frozen
+independent-edge baseline reached three-seed mean pairwise accuracy `0.999145`
+on official dev, triggering `STOP_CURRENT_METHOD`. Do not train a Sinkhorn or
+global binding model for that task. The only authorized successor is the
+aggregate-only full-population audit in
+`docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`; passing it authorizes split design,
+not verifier training.
+
 ## Environment and paths
 
 - Repository: `~/topocf-rag`

@@ -1,0 +1,72 @@
+{
+  "artifacts": {
+    "audit_module": {
+      "path": "src/topocf_rag/all_observed_population.py",
+      "sha256": "466f91e784b50ed77d300a38559fd406a988727e30794c52760c18e878ba404e"
+    },
+    "audit_script": {
+      "path": "scripts/audit_all_observed_population.py",
+      "sha256": "f172cbf9d15673f735513e3733ea1bc226101ad309807d28f013287a4db7be1d"
+    },
+    "existing_dev_manifest": {
+      "path": "data/phase1/hotpot_dev_phase1_pairs.json",
+      "sha256": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35"
+    },
+    "existing_train_manifest": {
+      "path": "data/phase1/hotpot_train_phase1_pairs.json",
+      "sha256": "c5e361da0ca22f6287baec2cc15a9b3639d53c3f07be5c7efab6c2bd3f0c8905"
+    },
+    "pair_generator": {
+      "path": "src/topocf_rag/pairs.py",
+      "sha256": "7cac8db61fa168e39ffb6cedbb47773d92b266e0e9bf8db621b2402374b84f31"
+    },
+    "stopped_method_dev_gate": {
+      "path": "reports/phase1/text_baseline_dev_gate.json",
+      "sha256": "36cf63a587cb41dae826ea0976a8ee7097539115a83ba3b211e86ff4469e3d4e"
+    }
+  },
+  "candidate_task": {
+    "name": "TopoCF-All-Observed-v2",
+    "negative": "q->A, q->C, A->D, C->B",
+    "positive": "q->A, q->C, A->B, C->D",
+    "required_observed_mentions": [
+      "A->B",
+      "C->D",
+      "A->D",
+      "C->B"
+    ],
+    "shared_payload": "the union of sentence evidence for all four observed mention edges is identical in the positive and negative candidate",
+    "status": "population_feasibility_audit_only"
+  },
+  "motivation": {
+    "predecessor_decision": "STOP_CURRENT_METHOD",
+    "predecessor_failure": "synthetic-common T3 labels are recoverable by independently checking whether swapped title-mention edges are textually grounded",
+    "required_improvement": "both candidate bindings must contain only observed and textually grounded local edges so that local edge reality cannot reveal the label"
+  },
+  "population_audit": {
+    "content_contract": "aggregate counts, histograms, runtime, and hashes only; no question IDs, questions, answers, contexts, titles, or sentences",
+    "context_pool": "all documents supplied in each official HotpotQA distractor-format record; this is not a full-corpus retrieval claim",
+    "question_filter": "type == bridge",
+    "sources": {
+      "dev_distractor": {
+        "path": "/file_system/datasets/hotpotqa/hotpot_dev_distractor_v1.json",
+        "sha256": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea"
+      },
+      "train": {
+        "path": "/file_system/datasets/hotpotqa/hotpot_train_v1.1.json",
+        "sha256": "26650cf50234ef5fb2e664ed70bbecdfd87815e6bffc257e068efea5cf7cd316"
+      }
+    },
+    "thresholds": {
+      "minimum_dev_question_count": 100,
+      "minimum_train_question_count": 500
+    }
+  },
+  "post_audit_rules": {
+    "if_passed": "freeze question-disjoint train fit/validation IDs and reserve every official-dev candidate for one-shot evaluation before training any verifier",
+    "if_failed": "do not weaken the all-observed condition; test a different official dataset or graph construction",
+    "independent_edge_baseline_required": true,
+    "manual_annotation_required": false
+  },
+  "schema_version": 1
+}

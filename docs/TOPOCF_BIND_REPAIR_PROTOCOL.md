@@ -2,6 +2,12 @@
 
 Frozen: 2026-07-16
 
+Stopped: 2026-07-18. The frozen independent-edge baseline reached three-seed
+official-dev mean pairwise accuracy `0.999145`, triggering the preregistered
+`STOP_CURRENT_METHOD` decision. The global binding/repair model described below
+must not be trained for `synthetic_common/t3`. The successor feasibility audit
+is `TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`.
+
 ## Decision
 
 The original mixed T1/T2/T3 task is not a valid primary learning problem. A

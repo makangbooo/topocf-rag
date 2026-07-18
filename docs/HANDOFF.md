@@ -10,13 +10,12 @@ baselines. A content-free structural audit then showed that the mixed
 T1/T2/T3 task is shortcut-solvable: the best metadata rule reaches 0.9912 on
 dev. Do not train on the mixed generator pool.
 
-The current continuation is `TopoCF-Bind-Repair-v1`. Train only on
-`synthetic_common/t3`; reserve `all_observed_rewire/t3_all_observed` as an
-untouched confirmatory stratum; use T1/T2/fork/double-collider only as
-diagnostics. Exact S4 alias-permutation control, counterfactual ranking, and
-structured binding repair are mandatory. See
-`TOPOCF_BIND_REPAIR_PROTOCOL.md` and run `scripts/audit_method_readiness.py`
-before training.
+`TopoCF-Bind-Repair-v1` on `synthetic_common/t3` is now stopped. A frozen
+independent-edge scorer reached a three-seed official-dev mean of `0.999145`,
+so the task does not establish a need for global binding. Do not train the
+planned Sinkhorn model. The current continuation is the population-only audit
+of `all_observed_rewire/t3_all_observed`, documented in
+`TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`.
 
 Current primary feasibility:
 

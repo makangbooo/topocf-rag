@@ -180,6 +180,19 @@ Each output path is write-once below
 hard failure. Flat official-dev scoring is deferred because it is unnecessary
 for the local-decomposability stop decision.
 
+The one-shot evaluation completed without reruns or invalid records:
+
+| Seed | Pairwise accuracy | AUROC | Mean margin |
+|---:|---:|---:|---:|
+| 20260718 | 1.0000 | 0.9963 | 2.5490 |
+| 20260719 | 1.0000 | 0.9975 | 2.0036 |
+| 20260720 | 0.9974 | 0.9920 | 2.1243 |
+
+The mean pairwise accuracy is `0.999145` and the minimum is `0.997436`.
+Therefore the frozen decision is `STOP_CURRENT_METHOD`. The finalized public
+report is `reports/phase1/text_baseline_dev_gate.json`; do not rerun these
+write-once official-dev evaluations.
+
 Checkpoints and reports are written below
 `/home/mkb524/topocf-rag-runs/text-baselines-v1` with mode-restricted parent
 directories. They must not be committed. Reports contain aggregate metrics,
@@ -193,8 +206,7 @@ Do not claim a constrained-binding contribution unless the final method beats
 both learned baselines and yields a positive structured-repair result. A win
 only over BM25/bge-m3 is insufficient.
 
-The three-seed independent-edge ceiling confirms the train-only stop signal.
-Do not train the global binding model while the one-shot official-dev result is
-pending. If the frozen external gate also stops, redesign the counterfactual so
-every local edge is individually plausible and only their global composition
-distinguishes the positive from the negative before method development resumes.
+The frozen external gate stopped the current method. Do not train its global
+binding model. The only authorized successor step is the aggregate population
+audit in `TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`, where every local edge is
+observed and grounded and only global composition may distinguish the pair.

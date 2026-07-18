@@ -180,10 +180,12 @@ The initial learning-rate selection is frozen in
 reselecting on the same inner-validation set.
 
 All three independent-edge seeds reached train-only validation pairwise
-accuracy `1.0`, so global binding-model training is paused. The next and only
-authorized method action is the hash-locked, inference-only official-dev check
-implemented by `scripts/evaluate_method_baseline_dev.py`; the decision gate is
-frozen in the same configuration before dev scoring.
+accuracy `1.0`; their one-shot official-dev mean was `0.999145`. The frozen
+decision is `STOP_CURRENT_METHOD`, so its global binding model must not be
+trained. The replacement feasibility audit requires every local edge to be
+observed and grounded; see
+[`docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md`](docs/TOPOCF_ALL_OBSERVED_V2_PROTOCOL.md)
+and run `scripts/audit_all_observed_population.py --no-fail-on-gate`.
 
 ## Graph-aware retrieval kill test
 

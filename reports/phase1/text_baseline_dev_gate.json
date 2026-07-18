@@ -1,0 +1,96 @@
+{
+  "content_contract": "aggregate metrics, runtime metadata, run fingerprints, and hashes only; no question IDs, questions, document text, or model inputs",
+  "data": {
+    "official_split": "dev_distractor",
+    "pair_count": 150,
+    "question_count": 65,
+    "selector": {
+      "stratum": "synthetic_common",
+      "variant": "t3"
+    }
+  },
+  "decision": {
+    "current_global_binding_training_authorized": false,
+    "formal_current_t3_method_claim_killed": true,
+    "frozen_gate_decision": "STOP_CURRENT_METHOD",
+    "reason": "A question-conditioned independent local-edge scorer solved the current T3 task at or above 0.9974 pairwise accuracy for every frozen seed on untouched official dev, so the task does not demonstrate a need for global binding constraints.",
+    "required_next_step": "Replace synthetic-common T3 with a task where every candidate local edge is observed and textually grounded before considering any global binding model."
+  },
+  "frozen_gate": {
+    "ambiguous": "all other outcomes require diagnosis without training the global-binding method",
+    "external_contradiction": "three-seed mean question-macro pairwise accuracy below 0.80",
+    "stop_current_method": "every seed has question-macro pairwise accuracy at least 0.90 and the three-seed mean is at least 0.95"
+  },
+  "input_artifacts": {
+    "dev_manifest_sha256": "3941d9f840cfdca28622f82b68a9ae71ad342d11e5bc04e0d21440235e8a0a35",
+    "dev_source_sha256": "4e9ecb5c8d3b719f624d66b60f8d56bf227f03914f5f0753d6fa1b359d7104ea",
+    "evaluation_configuration_sha256": "89156dacc3ef8975dbc02faa42ab206dddd5a476e3622827767b0c956d66e312",
+    "model_fingerprint_sha256": "01f807839563e5e18293e9498f59e5e025ecd134fcf8a1cd2076e840faf8b4fb",
+    "pre_dev_selection_report_sha256": "ebc5256ff9603ac35676cad9579bcd6a68d3216cbd85903bd40256a1ce94dea2"
+  },
+  "protocol": {
+    "baseline": "independent_edge",
+    "candidate_aggregation": "arithmetic mean of four independently scored local typed-edge logits",
+    "checkpoint_selection": "hash-frozen before official-dev access",
+    "exact_s4_orbit_size": 24,
+    "input_protocol_sha256": "75fefad916c97b45c5f5573e00a25c746586352cae4b1432f6d68d32e8ee0fd5",
+    "seed_count": 3,
+    "training_or_tuning": false
+  },
+  "runs": {
+    "20260718": {
+      "auroc": 0.9963076923076921,
+      "checkpoint_epoch": 4,
+      "checkpoint_sha256": "0b53e502abeb35dab6c2d4cc1bf97319d424c7485485af10112ac5f8d285de9d",
+      "elapsed_seconds": 239.25550691201352,
+      "mean_question_mean_margin": 2.5489674431471308,
+      "pairwise_accuracy": 1.0,
+      "pairwise_bootstrap_95": {
+        "high": 1.0,
+        "low": 1.0
+      },
+      "peak_memory_bytes": 4902772736,
+      "report_sha256": "783b6ac15d35aeb8fdb2ab7b6fc4caa19b7a121b8a7de8eb3c3835ffc1e7fcd6",
+      "run_fingerprint": "248dd6b136c60770e28f3b7176aa6f675401da88239a0b10cb7867f21b35714b"
+    },
+    "20260719": {
+      "auroc": 0.9975384615384616,
+      "checkpoint_epoch": 4,
+      "checkpoint_sha256": "e97efa6a9eda320f66781bdcb08c9d8001bbcd8a372dc2000e893b8f556dc9ac",
+      "elapsed_seconds": 240.68712755991146,
+      "mean_question_mean_margin": 2.0036370096916976,
+      "pairwise_accuracy": 1.0,
+      "pairwise_bootstrap_95": {
+        "high": 1.0,
+        "low": 1.0
+      },
+      "peak_memory_bytes": 4902772736,
+      "report_sha256": "9aee904f5e13d96c4aac2244043ee2b678366d80ece74b8cc97e8e7cf7c08c2f",
+      "run_fingerprint": "eda634253b821746a2d7ab029bad16c7dd2e318c0d88eb79ff74ddcf7d66868c"
+    },
+    "20260720": {
+      "auroc": 0.991982905982906,
+      "checkpoint_epoch": 4,
+      "checkpoint_sha256": "dfb0d37c5fa8d92b12c0521b0cde21c811583d5be58bdec27c833b356f1371aa",
+      "elapsed_seconds": 240.11886194208637,
+      "mean_question_mean_margin": 2.1243186717796094,
+      "pairwise_accuracy": 0.9974358974358976,
+      "pairwise_bootstrap_95": {
+        "high": 1.0,
+        "low": 0.9923076923076923
+      },
+      "peak_memory_bytes": 4902772736,
+      "report_sha256": "9ee08cce514ee31f1e08074a4f52aafcd157b77adb44fde18afc81b4aa6cd638",
+      "run_fingerprint": "de5c886520c258ca25d77c351696c534ab0f9499ca807ff1a4da55654d779711"
+    }
+  },
+  "schema_version": 1,
+  "summary": {
+    "auroc_mean": 0.9952763532763532,
+    "pairwise_accuracy_maximum": 1.0,
+    "pairwise_accuracy_mean": 0.9991452991452991,
+    "pairwise_accuracy_minimum": 0.9974358974358976,
+    "seed_count": 3
+  },
+  "task": "topocf_text_baseline_official_dev_gate"
+}
